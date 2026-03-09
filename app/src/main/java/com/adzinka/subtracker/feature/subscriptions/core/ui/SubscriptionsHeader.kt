@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.sp
 import com.adzinka.subtracker.ui.theme.AppColors
 
 @Composable
-fun SubscriptionHeader(
-    totalMonthly: Float,
+fun SubscriptionsHeader(
+    totalMonthly: Int,
     upcomingCount: Int,
     modifier: Modifier = Modifier
 ) {
@@ -53,7 +53,7 @@ fun SubscriptionHeader(
 
             ) {
                 Text(
-                    text = "Podpisy",
+                    text = "Subscriptions",
                     color = AppColors.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -99,7 +99,7 @@ fun SubscriptionHeader(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "tento měsíc",
+                            text = "this month",
                             color = AppColors.White.copy(alpha = 0.7f),
                             fontSize = 12.sp
                         )
@@ -138,8 +138,8 @@ fun SubscriptionHeader(
 @Preview
 @Composable
 fun SubscriptionHeaderPreview(modifier: Modifier = Modifier) {
-    SubscriptionHeader(
-        totalMonthly = 3057f,
+    SubscriptionsHeader(
+        totalMonthly = 3057,
         upcomingCount = 4
     )
 }
