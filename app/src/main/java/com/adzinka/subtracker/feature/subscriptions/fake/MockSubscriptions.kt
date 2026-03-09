@@ -9,7 +9,7 @@ val mockSubscriptions = listOf(
         1,
         "YouTube Premium",
         "Streaming",
-        "Zítra",
+        "Tomorrow",
         219,
         status = SubscriptionStatus.SOON,
         iconEmoji = "📺",
@@ -28,7 +28,7 @@ val mockSubscriptions = listOf(
     Subscription(
         3,
         "Adobe Creative Cloud",
-        "Produktivita",
+        "Productivity",
         "8. 3.",
         1199,
         status = SubscriptionStatus.SOON,
@@ -58,7 +58,7 @@ val mockSubscriptions = listOf(
     Subscription(
         6,
         "Spotify",
-        "Hudba",
+        "Music",
         "22. 3.",
         149,
         status = SubscriptionStatus.ACTIVE,

@@ -9,7 +9,7 @@ data class Subscription(
     val nextPaymentDate: String,
     val price: Int,
     val currency: String = "CZK",
-    val period: String = "měsíčně",
+    val period: String = "monthly",
     val status: SubscriptionStatus = SubscriptionStatus.ACTIVE,
     val iconEmoji: String,
     val iconColor: Color
