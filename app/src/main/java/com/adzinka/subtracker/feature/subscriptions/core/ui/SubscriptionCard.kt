@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -65,7 +66,8 @@ fun SubscriptionCard(subscription: Subscription) {
                         fontWeight = FontWeight.SemiBold,
                         color = AppColors.TextPrimary,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f)
                     )
 
                     if (subscription.status != SubscriptionStatus.ACTIVE) {
@@ -108,7 +110,7 @@ fun SubscriptionCardPreview() {
     MaterialTheme {
         Box(modifier = Modifier.padding(16.dp)) {
             SubscriptionCard(
-                subscription = mockSubscriptions[0]
+                subscription = mockSubscriptions[2]
             )
         }
     }
