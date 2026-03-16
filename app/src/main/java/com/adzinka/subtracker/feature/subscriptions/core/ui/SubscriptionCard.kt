@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -29,7 +28,7 @@ import com.adzinka.subtracker.feature.subscriptions.core.util.formatPrice
 import com.adzinka.subtracker.feature.subscriptions.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.subscriptions.model.Subscription
 import com.adzinka.subtracker.feature.subscriptions.model.SubscriptionStatus
-import com.adzinka.subtracker.ui.theme.AppColors
+import com.adzinka.subtracker.feature.subscriptions.core.ui.theme.AppColors
 
 @Composable
 fun SubscriptionCard(subscription: Subscription) {

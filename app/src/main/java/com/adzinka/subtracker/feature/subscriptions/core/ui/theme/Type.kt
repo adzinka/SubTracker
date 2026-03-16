@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.ui.theme
+package com.adzinka.subtracker.feature.subscriptions.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

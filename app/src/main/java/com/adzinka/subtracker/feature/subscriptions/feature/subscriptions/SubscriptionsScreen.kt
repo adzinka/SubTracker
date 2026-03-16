@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.feature.subscriptions.core.ui
+package com.adzinka.subtracker.feature.subscriptions.feature.subscriptions
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,11 +19,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adzinka.subtracker.feature.subscriptions.core.ui.SubscriptionCard
+import com.adzinka.subtracker.feature.subscriptions.core.ui.SubscriptionsHeader
 import com.adzinka.subtracker.feature.subscriptions.core.ui.components.AddButton
 import com.adzinka.subtracker.feature.subscriptions.core.ui.components.FilterRow
 import com.adzinka.subtracker.feature.subscriptions.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.subscriptions.model.SubscriptionStatus
-import com.adzinka.subtracker.ui.theme.AppColors
+import com.adzinka.subtracker.feature.subscriptions.core.ui.theme.AppColors
 
 @Composable
 fun SubscriptionsScreen() {

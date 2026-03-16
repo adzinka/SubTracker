@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.adzinka.subtracker.ui.theme.AppColors
+import com.adzinka.subtracker.feature.subscriptions.core.ui.theme.AppColors
 
 @Composable
 fun FilterChip(
@@ -86,7 +86,7 @@ fun SelectedFilterChipPreview() {
 fun UnselectedFilterChipPreview() {
     FilterChip(
         label = "Active",
-        badge = null,
+        badge = 3,
         isSelected = false,
         onClick = { }
     )
