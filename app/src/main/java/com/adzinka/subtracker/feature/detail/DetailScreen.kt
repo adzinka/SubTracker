@@ -20,11 +20,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.fake.mockSubscriptions
-import com.adzinka.subtracker.feature.detail.components.ActionButtons
-import com.adzinka.subtracker.feature.detail.components.DetailHeader
-import com.adzinka.subtracker.feature.detail.components.NotesCard
-import com.adzinka.subtracker.feature.detail.components.PaymentRow
-import com.adzinka.subtracker.feature.detail.components.PaymentsHeader
 import com.adzinka.subtracker.model.Payment
 import com.adzinka.subtracker.model.Subscription
 
