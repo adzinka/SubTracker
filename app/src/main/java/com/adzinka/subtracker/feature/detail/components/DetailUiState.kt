@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.feature.detail
+package com.adzinka.subtracker.feature.detail.components
 
 import com.adzinka.subtracker.model.Payment
 import com.adzinka.subtracker.model.Subscription

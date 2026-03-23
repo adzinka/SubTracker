@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.feature.detail
+package com.adzinka.subtracker.feature.detail.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

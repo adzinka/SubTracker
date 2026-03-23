@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.adzinka.subtracker.feature.subscriptions.core.ui.theme.AppColors
+import com.adzinka.subtracker.core.ui.theme.AppColors
 
 @Composable
 fun AddButton(onClick: () -> Unit) {

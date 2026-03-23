@@ -19,13 +19,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.adzinka.subtracker.core.ui.SubscriptionCard
-import com.adzinka.subtracker.core.ui.SubscriptionsHeader
-import com.adzinka.subtracker.core.ui.components.AddButton
-import com.adzinka.subtracker.core.ui.components.FilterRow
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.model.SubscriptionStatus
 import com.adzinka.subtracker.core.ui.theme.AppColors
+import com.adzinka.subtracker.feature.subscriptions.components.FilterRow
+import com.adzinka.subtracker.feature.subscriptions.core.ui.SubscriptionCard
+import com.adzinka.subtracker.feature.subscriptions.core.ui.SubscriptionsHeader
+import com.adzinka.subtracker.feature.subscriptions.core.ui.components.AddButton
 
 @Composable
 fun SubscriptionsScreen() {

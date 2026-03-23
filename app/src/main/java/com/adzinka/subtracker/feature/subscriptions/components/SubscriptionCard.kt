@@ -22,13 +22,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adzinka.subtracker.core.ui.theme.AppColors
+import com.adzinka.subtracker.core.util.formatPrice
+import com.adzinka.subtracker.fake.mockSubscriptions
+import com.adzinka.subtracker.feature.subscriptions.components.SubscriptionIcon
 import com.adzinka.subtracker.feature.subscriptions.core.ui.components.StatusBadge
-import com.adzinka.subtracker.feature.subscriptions.core.ui.components.SubscriptionIcon
-import com.adzinka.subtracker.feature.subscriptions.core.util.formatPrice
-import com.adzinka.subtracker.feature.subscriptions.fake.mockSubscriptions
-import com.adzinka.subtracker.feature.subscriptions.model.Subscription
-import com.adzinka.subtracker.feature.subscriptions.model.SubscriptionStatus
-import com.adzinka.subtracker.feature.subscriptions.core.ui.theme.AppColors
+import com.adzinka.subtracker.model.Subscription
+import com.adzinka.subtracker.model.SubscriptionStatus
 
 @Composable
 fun SubscriptionCard(subscription: Subscription) {

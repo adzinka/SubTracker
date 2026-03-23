@@ -3,6 +3,7 @@ package com.adzinka.subtracker.feature.detail
 import androidx.lifecycle.ViewModel
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.fake.mockSubscriptions
+import com.adzinka.subtracker.feature.detail.components.DetailUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
