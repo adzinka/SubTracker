@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.ui.theme
+package com.adzinka.subtracker.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -23,8 +23,7 @@ val mockSubscriptions = listOf(
         890,
         status = SubscriptionStatus.SOON,
         iconEmoji = "🏋️",
-        iconColor = Color(0xFFFFB347),
-        notes = "All-inclusive membership"
+        iconColor = Color(0xFFFFB347)
     ),
     Subscription(
         3,

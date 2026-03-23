@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.adzinka.subtracker.feature.subscriptions.core.ui.theme.AppColors
+import com.adzinka.subtracker.core.ui.theme.AppColors
 
 @Composable
 fun FilterChip(
