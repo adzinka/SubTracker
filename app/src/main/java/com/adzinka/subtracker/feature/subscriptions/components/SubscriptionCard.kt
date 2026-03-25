@@ -27,12 +27,12 @@ import androidx.compose.ui.unit.sp
 import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.core.util.formatPrice
 import com.adzinka.subtracker.fake.mockSubscriptions
-import com.adzinka.subtracker.feature.subscriptions.SubscriptionsItemUIState
+import com.adzinka.subtracker.feature.subscriptions.SubscriptionsItemUiState
 import com.adzinka.subtracker.model.SubscriptionStatus
 
 @Composable
 fun SubscriptionCard(
-    subscription: SubscriptionsItemUIState,
+    subscription: SubscriptionsItemUiState,
     onClick: () -> Unit
 ) {
     Card(
