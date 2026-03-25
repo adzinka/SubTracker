@@ -9,14 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adzinka.subtracker.feature.subscriptions.core.ui.components.FilterChip
+import com.adzinka.subtracker.model.FilterStatus
 
 @Composable
 fun FilterRow(
-    selectedFilter: String,
+    selectedFilter: FilterStatus,
     soonCount: Int,
-    onFilterSelected: (String) -> Unit,
+    onFilterSelected: (FilterStatus) -> Unit,
 ) {
-    val filters = listOf("All", "Active", "Paused", "Soon")
 
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -24,10 +24,10 @@ fun FilterRow(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
     ) {
-        filters.forEach { filter ->
+        FilterStatus.entries.forEach { filter ->
             FilterChip(
-                label = filter,
-                badge = if (filter == "Soon") soonCount else null,
+                label = filter.name,
+                badge = if (filter.name == "Soon") soonCount else null,
                 isSelected = filter == selectedFilter,
                 onClick = { onFilterSelected(filter) }
             )
@@ -39,7 +39,7 @@ fun FilterRow(
 @Composable
 fun FilterRowPreview() {
     FilterRow(
-        selectedFilter = "All",
+        selectedFilter = FilterStatus.ALL,
         soonCount = 4,
         onFilterSelected = { },
     )
