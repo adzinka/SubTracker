@@ -94,8 +94,8 @@ private fun DetailContent(
                 period = subscription.period,
                 nextPaymentDate = subscription.nextPaymentDate,
                 status = subscription.status,
-                iconEmoji = subscription.iconEmoji,
-                headerColor = subscription.iconColor,
+                iconEmoji = subscription.category.iconEmoji,
+                headerColor = Color(subscription.category.iconColor),
                 onBackClick = onBackClick,
                 onEditClick = onEditClick
             )

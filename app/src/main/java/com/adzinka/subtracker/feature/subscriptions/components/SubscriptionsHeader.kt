@@ -32,6 +32,7 @@ import com.adzinka.subtracker.core.ui.theme.AppColors
 @Composable
 fun SubscriptionsHeader(
     totalMonthly: Int,
+    currency: String,
     upcomingCount: Int,
     modifier: Modifier = Modifier
 ) {
@@ -93,7 +94,7 @@ fun SubscriptionsHeader(
                 ) {
                     Column() {
                         Text(
-                            text = "$totalMonthly CZK",
+                            text = "$totalMonthly $currency",
                             color = AppColors.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
@@ -140,6 +141,7 @@ fun SubscriptionsHeader(
 fun SubscriptionHeaderPreview(modifier: Modifier = Modifier) {
     SubscriptionsHeader(
         totalMonthly = 3057,
+        currency = "CZK",
         upcomingCount = 4
     )
 }

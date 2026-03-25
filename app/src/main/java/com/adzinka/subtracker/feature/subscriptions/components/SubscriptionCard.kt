@@ -1,5 +1,6 @@
-package com.adzinka.subtracker.feature.subscriptions.core.ui
+package com.adzinka.subtracker.feature.subscriptions.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,19 +27,21 @@ import androidx.compose.ui.unit.sp
 import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.core.util.formatPrice
 import com.adzinka.subtracker.fake.mockSubscriptions
-import com.adzinka.subtracker.feature.subscriptions.components.SubscriptionIcon
-import com.adzinka.subtracker.feature.subscriptions.components.StatusBadge
-import com.adzinka.subtracker.model.Subscription
+import com.adzinka.subtracker.feature.subscriptions.SubscriptionsItemUiState
 import com.adzinka.subtracker.model.SubscriptionStatus
 
 @Composable
-fun SubscriptionCard(subscription: Subscription) {
+fun SubscriptionCard(
+    subscription: SubscriptionsItemUiState,
+    onClick: () -> Unit
+) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = AppColors.CardBackground),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -46,8 +50,8 @@ fun SubscriptionCard(subscription: Subscription) {
                 .padding(16.dp)
         ) {
             SubscriptionIcon(
-                emoji = subscription.iconEmoji,
-                backgroundColor = subscription.iconColor.copy(alpha = 0.15f)
+                emoji = subscription.category.iconEmoji,
+                backgroundColor = Color(subscription.category.iconColor).copy(alpha = 0.15f)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -93,7 +97,7 @@ fun SubscriptionCard(subscription: Subscription) {
                     color = AppColors.TextPrimary
                 )
                 Text(
-                    text = subscription.period,
+                    text = subscription.paymentPeriod,
                     fontSize = 11.sp,
                     color = AppColors.TextSecondary
                 )
@@ -103,14 +107,14 @@ fun SubscriptionCard(subscription: Subscription) {
     }
 }
 
-@Preview
-@Composable
-fun SubscriptionCardPreview() {
-    MaterialTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
-            SubscriptionCard(
-                subscription = mockSubscriptions[2]
-            )
-        }
-    }
-}
+//@Preview
+//@Composable
+//fun SubscriptionCardPreview() {
+//    MaterialTheme {
+//        Box(modifier = Modifier.padding(16.dp)) {
+//            SubscriptionCard(
+//                subscription = mockSubscriptions[2]
+//            )
+//        }
+//    }
+//}
