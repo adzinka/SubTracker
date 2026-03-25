@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,8 +47,8 @@ fun SubscriptionCard(subscription: Subscription) {
                 .padding(16.dp)
         ) {
             SubscriptionIcon(
-                emoji = subscription.iconEmoji,
-                backgroundColor = subscription.iconColor.copy(alpha = 0.15f)
+                emoji = subscription.category.iconEmoji,
+                backgroundColor = Color(subscription.category.iconColor).copy(alpha = 0.15f)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
