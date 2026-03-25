@@ -1,5 +1,6 @@
-package com.adzinka.subtracker.feature.subscriptions.core.ui
+package com.adzinka.subtracker.feature.subscriptions.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,19 +27,21 @@ import androidx.compose.ui.unit.sp
 import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.core.util.formatPrice
 import com.adzinka.subtracker.fake.mockSubscriptions
-import com.adzinka.subtracker.feature.subscriptions.components.SubscriptionIcon
-import com.adzinka.subtracker.feature.subscriptions.components.StatusBadge
-import com.adzinka.subtracker.model.Subscription
+import com.adzinka.subtracker.feature.subscriptions.SubscriptionsItemUIState
 import com.adzinka.subtracker.model.SubscriptionStatus
 
 @Composable
-fun SubscriptionCard(subscription: Subscription) {
+fun SubscriptionCard(
+    subscription: SubscriptionsItemUIState,
+    onClick: () -> Unit
+) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = AppColors.CardBackground),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -94,7 +97,7 @@ fun SubscriptionCard(subscription: Subscription) {
                     color = AppColors.TextPrimary
                 )
                 Text(
-                    text = subscription.period,
+                    text = subscription.paymentPeriod,
                     fontSize = 11.sp,
                     color = AppColors.TextSecondary
                 )
@@ -104,14 +107,14 @@ fun SubscriptionCard(subscription: Subscription) {
     }
 }
 
-@Preview
-@Composable
-fun SubscriptionCardPreview() {
-    MaterialTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
-            SubscriptionCard(
-                subscription = mockSubscriptions[2]
-            )
-        }
-    }
-}
+//@Preview
+//@Composable
+//fun SubscriptionCardPreview() {
+//    MaterialTheme {
+//        Box(modifier = Modifier.padding(16.dp)) {
+//            SubscriptionCard(
+//                subscription = mockSubscriptions[2]
+//            )
+//        }
+//    }
+//}
