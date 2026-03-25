@@ -65,14 +65,5 @@ val mockSubscriptions = listOf(
         iconEmoji = "🎵",
         iconColor = Color(0xFF1DB954)
     ),
-    Subscription(
-        7,
-        "O2 TV",
-        "Streaming",
-        "25. 3.",
-        199,
-        status = SubscriptionStatus.PAUSED,
-        iconEmoji = "📡",
-        iconColor = Color(0xFFAA88FF)
-    )
+
 )
