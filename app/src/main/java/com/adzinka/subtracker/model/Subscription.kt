@@ -1,8 +1,5 @@
 package com.adzinka.subtracker.model
 
-import androidx.compose.ui.graphics.Color
-import com.adzinka.subtracker.feature.subscriptions.SubscriptionsItemUIState
-
 data class Subscription(
     val id: Int,
     val name: String,
