@@ -33,6 +33,7 @@ import com.adzinka.subtracker.model.FilterStatus
 
 @Composable
 fun SubscriptionsScreen(
+    onSubscriptionClick: (Int) -> Unit,
     viewModel: SubscriptionsViewModel = viewModel()
 ) {
 
@@ -47,7 +48,8 @@ fun SubscriptionsScreen(
         is SubscriptionsUiState.Success -> {
             SubscriptionsContent(
                 data = state.data,
-                onFilterSelected = viewModel::onFilterSelected
+                onFilterSelected = viewModel::onFilterSelected,
+                onSubscriptionClick = onSubscriptionClick
             )
         }
         is SubscriptionsUiState.Error -> {
@@ -61,8 +63,9 @@ fun SubscriptionsScreen(
 
 @Composable
 private fun SubscriptionsContent(
-    data: SubscriptionsUIState,
-    onFilterSelected: (FilterStatus) -> Unit
+    data: SubscriptionsListUiState,
+    onFilterSelected: (FilterStatus) -> Unit,
+    onSubscriptionClick: (Int) -> Unit
 ) {
 
     val filteredSubscriptions = remember(data.filterStatus, data.subscriptionsItems) {
@@ -107,9 +110,12 @@ private fun SubscriptionsContent(
             ) {
                 items(
                     items = filteredSubscriptions,
-                    key = { it.name }
+                    key = { it.id }
                 ) { item ->
-                    SubscriptionCard(subscription = item)
+                    SubscriptionCard(
+                        subscription = item,
+                        onClick = { onSubscriptionClick(item.id)}
+                    )
                 }
             }
         }
