@@ -12,6 +12,7 @@ data class Subscription(
     val currency: String = "CZK",
     val period: String = "monthly",
     val status: SubscriptionStatus = SubscriptionStatus.ACTIVE,
+    val notes: String? = null
 )
 
 fun Subscription.toUIState() = SubscriptionsItemUIState(
