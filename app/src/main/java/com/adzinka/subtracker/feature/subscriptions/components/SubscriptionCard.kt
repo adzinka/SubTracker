@@ -26,7 +26,7 @@ import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.core.util.formatPrice
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.subscriptions.components.SubscriptionIcon
-import com.adzinka.subtracker.feature.subscriptions.core.ui.components.StatusBadge
+import com.adzinka.subtracker.feature.subscriptions.components.StatusBadge
 import com.adzinka.subtracker.model.Subscription
 import com.adzinka.subtracker.model.SubscriptionStatus
 
