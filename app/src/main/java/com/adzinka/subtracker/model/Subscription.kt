@@ -15,16 +15,6 @@ data class Subscription(
     val notes: String? = null
 )
 
-fun Subscription.toUIState() = SubscriptionsItemUIState(
-    name = name,
-    price = price,
-    currency = currency,
-    nextPaymentDate = nextPaymentDate,
-    paymentPeriod = "měsíčně",
-    status = status,
-    category = category
-)
-
 enum class SubscriptionStatus {
     ACTIVE, PAUSED, SOON
 }
