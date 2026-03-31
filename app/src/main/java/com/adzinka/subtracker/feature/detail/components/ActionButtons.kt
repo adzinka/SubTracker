@@ -1,5 +1,7 @@
 package com.adzinka.subtracker.feature.detail.components
 
+import android.R.attr.onClick
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,7 +31,7 @@ fun ActionButtons(modifier: Modifier = Modifier) {
                 containerColor = Color(0xFFE8F5E9),
                 contentColor = Color(0xFF4CAF50)
             ),
-            border = null
+            border = BorderStroke(1.dp, Color(0xFF4CAF50).copy(alpha = 0.5f))
         ) {
             Text("✅  Zaplatit", fontWeight = FontWeight.SemiBold)
         }
@@ -42,7 +44,7 @@ fun ActionButtons(modifier: Modifier = Modifier) {
                 containerColor = Color(0xFFFFF3E0),
                 contentColor = Color(0xFFFF9800)
             ),
-            border = null
+            border = BorderStroke(1.dp, Color(0xFFFF9800).copy(alpha = 0.5f))
         ) {
             Text("⏸  Pozastavit", fontWeight = FontWeight.SemiBold)
         }
