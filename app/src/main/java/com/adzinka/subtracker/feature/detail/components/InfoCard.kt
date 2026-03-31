@@ -33,34 +33,36 @@ fun InfoCard(
             .background(Color.White.copy(alpha = 0.2f))
             .padding(horizontal = 12.dp, vertical = 10.dp)
     ) {
-        Column {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = emoji, fontSize = 12.sp)
+            Column(
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier.padding(start = 4.dp)
             ) {
-                Text(text = emoji, fontSize = 12.sp)
                 Text(
                     text = label,
                     color = Color.White.copy(alpha = 0.75f),
                     fontSize = 11.sp
                 )
+                Text(
+                    text = value,
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = value,
-                color = Color.White,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold
-            )
         }
+
     }
 }
 
-@Preview
+@Preview()
 @Composable
 fun InfoCardPreview() {
     InfoCard(
-        label = "iidjf",
+        label = "Gym",
         value = "223",
         emoji = "🏋️",
     )

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
@@ -68,26 +69,40 @@ fun DetailHeader(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Back Button
-                IconButton(onClick = onBackClick) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Zpět",
-                        tint = AppColors.White
-                    )
+                Box(
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .background(AppColors.White.copy(alpha = 0.25f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = null,
+                            tint = AppColors.White,
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                    }
                 }
+
 
                 Text(
                     text = name,
                     color = AppColors.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 12.dp)
                 )
 
-                Box(modifier = Modifier
-                    .size(30.dp)
-                    .clip(CircleShape)
-                    .background(AppColors.White.copy(alpha = 0.25f)),
+                Box(
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .background(AppColors.White.copy(alpha = 0.25f)),
                     contentAlignment = Alignment.Center
                 ) {
                     IconButton(onClick = onEditClick) {
@@ -103,77 +118,90 @@ fun DetailHeader(
 
             }
 
-            // Main info: icon + price + status
-            Row(
+            // Main info box: icon + price + status
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(AppColors.White.copy(alpha = 0.15f))
+                    .padding(vertical = 16.dp)
             ) {
-                // Icon emoji
-                Box(
-                    modifier = Modifier
-                        .size(56.dp)
-                        .clip(CircleShape)
-                        .background(AppColors.White.copy(alpha = 0.25f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = iconEmoji, fontSize = 28.sp)
-                }
+                Column {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Icon emoji
+                        Box(
+                            modifier = Modifier
+                                .size(56.dp)
+                                .clip(CircleShape)
+                                .background(AppColors.White.copy(alpha = 0.25f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = iconEmoji, fontSize = 28.sp)
+                        }
 
-                Spacer(modifier = Modifier.width(16.dp))
+                        Spacer(modifier = Modifier.width(16.dp))
 
-                // Price
-                Column(modifier = Modifier.weight(1f)) {
-                    Row(verticalAlignment = Alignment.Bottom) {
-                        Text(
-                            text = "$price",
-                            color = AppColors.White,
-                            fontSize = 36.sp,
-                            fontWeight = FontWeight.Bold,
-                            lineHeight = 36.sp
+                        // Price
+                        Column(modifier = Modifier.weight(1f)) {
+                            Row(verticalAlignment = Alignment.Bottom) {
+                                Text(
+                                    text = "$price",
+                                    color = AppColors.White,
+                                    fontSize = 36.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    lineHeight = 36.sp
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = currency,
+                                    color = AppColors.White,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    modifier = Modifier.padding(bottom = 4.dp)
+                                )
+                            }
+                            Text(
+                                text = "$price $currency / $period",
+                                color = AppColors.White.copy(alpha = 0.75f),
+                                fontSize = 13.sp
+                            )
+                        }
+
+                        // Status badge
+                        HeaderStatusBadge(status = status)
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        InfoCard(
+                            label = "Příští platba",
+                            value = nextPaymentDate,
+                            emoji = "📅",
+                            modifier = Modifier.weight(1f)
                         )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = currency,
-                            color = AppColors.White,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Medium,
-                            modifier = Modifier.padding(bottom = 4.dp)
+                        InfoCard(
+                            label = "Měsíčně",
+                            value = "~$price $currency",
+                            emoji = "💲",
+                            modifier = Modifier.weight(1f)
                         )
                     }
-                    Text(
-                        text = "$price $currency / $period",
-                        color = AppColors.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp
-                    )
                 }
 
-                // Status badge
-                HeaderStatusBadge(status = status)
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                InfoCard(
-                    label = "Příští platba",
-                    value = nextPaymentDate,
-                    emoji = "📅",
-                    modifier = Modifier.weight(1f)
-                )
-                InfoCard(
-                    label = "Měsíčně",
-                    value = "~$price $currency",
-                    emoji = "💲",
-                    modifier = Modifier.weight(1f)
-                )
-            }
         }
     }
 }

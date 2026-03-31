@@ -1,6 +1,7 @@
 package com.adzinka.subtracker.feature.detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,21 +34,10 @@ import com.adzinka.subtracker.model.Subscription
 @Composable
 fun DetailScreen(
     subscriptionId: Int,
-//    name: String = "Fitness Zone",
-//    category: String = "Fitness",
-//    price: Int = 890,
-//    currency: String = "CZK",
-//    period: String = "měsíc",
-//    nextPaymentDate: String = "7. března 2026",
-//    status: SubscriptionStatus = SubscriptionStatus.SOON,
-//    notes: String? = "All-inclusive membership",
-//    iconEmoji: String = "🏋️",
-//    headerColor: Color = Color(0xFFFF8C55),
-//    payments: List<Payment> = mockPayments,
     onBackClick: () -> Unit,
     onEditClick: () -> Unit,
-    viewModel: com.adzinka.subtracker.feature.detail.DetailViewModel = viewModel(
-        factory = _root_ide_package_.com.adzinka.subtracker.feature.detail.DetailViewModelFactory(
+    viewModel: DetailViewModel = viewModel(
+        factory = DetailViewModelFactory(
             subscriptionId
         )
     )
@@ -54,7 +45,7 @@ fun DetailScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (val state = uiState) {
-        is DetailUiState.Loading -> { /* спиннер */ }
+        is DetailUiState.Loading -> {  }
         is DetailUiState.Success -> {
             DetailContent(
                 subscription = state.subscription,
@@ -65,7 +56,7 @@ fun DetailScreen(
                 onPauseClick = viewModel::onPauseClick
             )
         }
-        is DetailUiState.Error -> { /* ошибка */ }
+        is DetailUiState.Error -> {  }
     }
 
 }
@@ -122,18 +113,38 @@ private fun DetailContent(
                     .padding(16.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .background(Color.White)
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .border(1.dp, Color(0xFF1A1A2E).copy(alpha = 0.1f), RoundedCornerShape(16.dp))
+
             ) {
-                PaymentsHeader(count = payments.size)
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                payments.forEach { payment ->
-                    PaymentRow(
-                        payment = payment,
-                        modifier = Modifier.padding(vertical = 4.dp)
-                    )
+                Column(modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                ) {
+                    PaymentsHeader(count = payments.size)
+                    Spacer(modifier = Modifier.height(4.dp))
                 }
+
+                HorizontalDivider(
+                    color = Color(0xFF1A1A2E).copy(alpha = 0.1f),
+                    thickness = 1.dp
+                )
+
+                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+
+                    payments.forEachIndexed { index, payment ->
+                        PaymentRow(
+                            payment = payment,
+                            modifier = Modifier.padding(vertical = 16.dp)
+                        )
+
+                        if (index < payments.lastIndex) {
+                            HorizontalDivider(
+                                color = Color(0xFF1A1A2E).copy(alpha = 0.1f),
+                                thickness = 0.5.dp
+                            )
+                        }
+                    }
+                }
+
             }
         }
     }

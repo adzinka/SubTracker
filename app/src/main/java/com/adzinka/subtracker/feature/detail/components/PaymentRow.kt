@@ -49,7 +49,7 @@ fun PaymentRow(payment: Payment, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PaymentRowPreview(modifier: Modifier = Modifier) {
     PaymentRow(
