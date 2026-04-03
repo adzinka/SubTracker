@@ -1,5 +1,6 @@
 package com.adzinka.subtracker.feature.subscriptions
 
+import com.adzinka.subtracker.model.BillingPeriod
 import com.adzinka.subtracker.model.Category
 import com.adzinka.subtracker.model.FilterStatus
 import com.adzinka.subtracker.model.SubscriptionStatus
@@ -24,7 +25,7 @@ data class SubscriptionsItemUiState(
     val price: Int,
     val currency: String,
     val nextPaymentDate: String,
-    val paymentPeriod: String,
+    val billingPeriod: BillingPeriod,
     val status: SubscriptionStatus,
     val category: Category
 )

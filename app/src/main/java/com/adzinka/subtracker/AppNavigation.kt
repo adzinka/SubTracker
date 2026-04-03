@@ -9,6 +9,7 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.adzinka.subtracker.feature.detail.DetailScreen
+import com.adzinka.subtracker.feature.edit.EditScreen
 import com.adzinka.subtracker.feature.subscriptions.SubscriptionsScreen
 import com.adzinka.subtracker.model.Subscription
 
@@ -16,7 +17,6 @@ import com.adzinka.subtracker.model.Subscription
 fun AppNavigation() {
 
     val backStack = rememberNavBackStack(SubscriptionsRoute)
-
 
     NavDisplay(
         backStack = backStack,
@@ -34,7 +34,13 @@ fun AppNavigation() {
                     DetailScreen(
                         subscriptionId = key.subscriptionId,
                         onBackClick = { backStack.removeLastOrNull() },
-                        onEditClick = { /* TODO */ }
+                        onEditClick = { backStack.add(EditRoute(key.subscriptionId)) }
+                    )
+                }
+                is EditRoute -> NavEntry(key) {
+                    EditScreen(
+                        subscriptionId = key.subscriptionId,
+                        onBackClick = { backStack.removeLastOrNull() }
                     )
                 }
                 else -> NavEntry(Unit as NavKey) { Text("Unknown route") }

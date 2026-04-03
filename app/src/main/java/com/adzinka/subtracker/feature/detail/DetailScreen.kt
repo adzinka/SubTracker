@@ -82,7 +82,7 @@ private fun DetailContent(
                 name = subscription.name,
                 price = subscription.price,
                 currency = subscription.currency,
-                period = subscription.period,
+                period = subscription.billingPeriod.label,
                 nextPaymentDate = subscription.nextPaymentDate,
                 status = subscription.status,
                 iconEmoji = subscription.category.iconEmoji,
