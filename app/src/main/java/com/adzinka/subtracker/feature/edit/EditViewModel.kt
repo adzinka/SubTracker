@@ -8,16 +8,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class EditViewModel(private val subscriptionId: Int) : ViewModel() {
+class EditViewModel(private val subscriptionId: Int?) : ViewModel() {
     private val _uiState = MutableStateFlow<EditUiState>(EditUiState.Loading)
     val uiState: StateFlow<EditUiState> = _uiState.asStateFlow()
 
     init { load() }
 
     private fun load() {
-        val sub = mockSubscriptions.find { it.id == subscriptionId }
-        _uiState.value = if (sub != null) {
-            EditUiState.Success(
+
+        _uiState.value = if (subscriptionId != null) {
+            val sub = mockSubscriptions.find { it.id == subscriptionId }
+            if (sub != null) EditUiState.Success(
                 EditFormState(
                     id = sub.id,
                     name = sub.name,
@@ -31,8 +32,9 @@ class EditViewModel(private val subscriptionId: Int) : ViewModel() {
                     reminderDays = sub.reminderDays ?: 1
                 )
             )
+            else EditUiState.Error("Subscription not found")
         } else {
-            EditUiState.Error("Subscription not found")
+            EditUiState.Success(EditFormState(id = -1))
         }
     }
 
