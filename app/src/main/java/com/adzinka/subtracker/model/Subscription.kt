@@ -8,6 +8,7 @@ data class Subscription(
     val price: Int,
     val currency: String = "CZK",
     val billingPeriod: BillingPeriod = BillingPeriod.MONTHLY,
+    val reminderDays: Int? = null,
     val status: SubscriptionStatus = SubscriptionStatus.ACTIVE,
     val notes: String? = null
 )
