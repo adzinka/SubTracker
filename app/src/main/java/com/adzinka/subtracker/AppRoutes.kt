@@ -8,3 +8,6 @@ data object SubscriptionsRoute : NavKey
 
 @Serializable
 data class DetailRoute(val subscriptionId: Int) : NavKey
+
+@Serializable
+data class EditRoute(val subscriptionId: Int) : NavKey
