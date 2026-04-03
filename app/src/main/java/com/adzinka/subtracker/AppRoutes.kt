@@ -10,4 +10,4 @@ data object SubscriptionsRoute : NavKey
 data class DetailRoute(val subscriptionId: Int) : NavKey
 
 @Serializable
-data class EditRoute(val subscriptionId: Int) : NavKey
+data class EditRoute(val subscriptionId: Int? = null) : NavKey
