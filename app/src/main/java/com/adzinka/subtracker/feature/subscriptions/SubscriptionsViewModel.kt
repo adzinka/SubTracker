@@ -35,7 +35,7 @@ class SubscriptionsViewModel : ViewModel() {
         price = subscription.price,
         currency = subscription.currency,
         nextPaymentDate = subscription.nextPaymentDate,
-        paymentPeriod = subscription.period,
+        billingPeriod = subscription.billingPeriod,
         status = subscription.status,
         category = subscription.category
     )

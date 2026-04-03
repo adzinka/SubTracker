@@ -97,7 +97,7 @@ fun SubscriptionCard(
                     color = AppColors.TextPrimary
                 )
                 Text(
-                    text = subscription.paymentPeriod,
+                    text = subscription.billingPeriod.label,
                     fontSize = 11.sp,
                     color = AppColors.TextSecondary
                 )
