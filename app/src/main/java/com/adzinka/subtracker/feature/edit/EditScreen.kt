@@ -28,7 +28,7 @@ import com.adzinka.subtracker.model.Category
 
 @Composable
 fun EditScreen(
-    subscriptionId: Int,
+    subscriptionId: Int?,
     onBackClick: () -> Unit,
     viewModel: EditViewModel = viewModel(
         factory = EditViewModelFactory(subscriptionId)
@@ -36,12 +36,15 @@ fun EditScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    val title = if (subscriptionId != null) "Upravit podpis" else "Nový podpis"
+
     when (val state = uiState) {
         is EditUiState.Loading -> { /* TODO */ }
         is EditUiState.Error -> { /* TODO */ }
         is EditUiState.Success -> {
             EditContent(
                 form = state.form,
+                title = title,
                 onBackClick = onBackClick,
                 onSaveClick = viewModel::onSaveClick,
                 onNameChange = viewModel::onNameChange,
@@ -62,6 +65,7 @@ fun EditScreen(
 @Composable
 private fun EditContent(
     form: EditFormState,
+    title: String,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
     onNameChange: (String) -> Unit,
@@ -76,7 +80,7 @@ private fun EditContent(
     onDeleteClick: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        EditTopBar(onBackClick = onBackClick, onSaveClick = onSaveClick)
+        EditTopBar(title, onBackClick = onBackClick, onSaveClick = onSaveClick)
 
         Column(
             modifier = Modifier
@@ -123,6 +127,7 @@ fun EditContentPreview() {
             reminderEnabled = true,
             reminderDays = subscription.reminderDays ?: 3
         ),
+        title = "New subscription",
         onBackClick = {},
         onSaveClick = {},
         onNameChange = {},

@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,7 +32,8 @@ import com.adzinka.subtracker.model.FilterStatus
 @Composable
 fun SubscriptionsScreen(
     onSubscriptionClick: (Int) -> Unit,
-    viewModel: SubscriptionsViewModel = viewModel()
+    viewModel: SubscriptionsViewModel = viewModel(),
+    onAddClick: () -> Boolean
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -49,7 +48,8 @@ fun SubscriptionsScreen(
             SubscriptionsContent(
                 data = state.data,
                 onFilterSelected = viewModel::onFilterSelected,
-                onSubscriptionClick = onSubscriptionClick
+                onSubscriptionClick = onSubscriptionClick,
+                onAddClick = onAddClick
             )
         }
         is SubscriptionsUiState.Error -> {
@@ -65,7 +65,8 @@ fun SubscriptionsScreen(
 private fun SubscriptionsContent(
     data: SubscriptionsListUiState,
     onFilterSelected: (FilterStatus) -> Unit,
-    onSubscriptionClick: (Int) -> Unit
+    onSubscriptionClick: (Int) -> Unit,
+    onAddClick: () -> Boolean
 ) {
 
     val filteredSubscriptions = remember(data.filterStatus, data.subscriptionsItems) {
@@ -79,7 +80,7 @@ private fun SubscriptionsContent(
 
     Scaffold(
         floatingActionButton = {
-            AddButton(onClick = { /* TODO: Navigate to add screen */ })
+            AddButton(onClick = onAddClick)
         },
         containerColor = AppColors.Background
     ) { paddingValues ->

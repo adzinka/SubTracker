@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.dp
 import com.adzinka.subtracker.core.ui.theme.AppColors
 
 @Composable
-fun AddButton(onClick: () -> Unit) {
+fun AddButton(onClick: () -> Boolean) {
     FloatingActionButton(
-        onClick = onClick,
+        onClick = { onClick() },
         containerColor = AppColors.Purple,
         contentColor = AppColors.White,
         shape = RoundedCornerShape(16.dp)

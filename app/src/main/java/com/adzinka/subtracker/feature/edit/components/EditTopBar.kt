@@ -30,7 +30,7 @@ import com.adzinka.subtracker.R
 import com.adzinka.subtracker.core.ui.theme.AppColors
 
 @Composable
-fun EditTopBar(onBackClick: () -> Unit, onSaveClick: () -> Unit) {
+fun EditTopBar(title: String, onBackClick: () -> Unit, onSaveClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,7 +47,7 @@ fun EditTopBar(onBackClick: () -> Unit, onSaveClick: () -> Unit) {
             )
         }
         Text(
-            text = "Upravit podpis",
+            text = title,
             color = AppColors.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
@@ -71,5 +71,5 @@ fun EditTopBar(onBackClick: () -> Unit, onSaveClick: () -> Unit) {
 @Preview
 @Composable
 fun EditTopBarPreview() {
-    EditTopBar(onBackClick = {}, onSaveClick = {})
+    EditTopBar("Edit Subscription", onBackClick = {}, onSaveClick = {})
 }
