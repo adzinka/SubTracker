@@ -11,3 +11,12 @@ data class DetailRoute(val subscriptionId: Int) : NavKey
 
 @Serializable
 data class EditRoute(val subscriptionId: Int? = null) : NavKey
+
+@Serializable
+data object CalendarRoute : NavKey
+
+@Serializable
+data object StatsRoute : NavKey
+
+@Serializable
+data object SettingsRoute : NavKey

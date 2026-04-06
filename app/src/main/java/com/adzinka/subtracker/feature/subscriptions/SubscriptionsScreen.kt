@@ -26,14 +26,14 @@ import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.feature.subscriptions.components.FilterRow
 import com.adzinka.subtracker.feature.subscriptions.components.SubscriptionCard
 import com.adzinka.subtracker.feature.subscriptions.core.ui.SubscriptionsHeader
-import com.adzinka.subtracker.feature.subscriptions.core.ui.components.AddButton
+import com.adzinka.subtracker.feature.subscriptions.components.AddButton
 import com.adzinka.subtracker.model.FilterStatus
 
 @Composable
 fun SubscriptionsScreen(
     onSubscriptionClick: (Int) -> Unit,
     viewModel: SubscriptionsViewModel = viewModel(),
-    onAddClick: () -> Boolean
+    onAddClick: () -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -66,7 +66,7 @@ private fun SubscriptionsContent(
     data: SubscriptionsListUiState,
     onFilterSelected: (FilterStatus) -> Unit,
     onSubscriptionClick: (Int) -> Unit,
-    onAddClick: () -> Boolean
+    onAddClick: () -> Unit
 ) {
 
     val filteredSubscriptions = remember(data.filterStatus, data.subscriptionsItems) {
