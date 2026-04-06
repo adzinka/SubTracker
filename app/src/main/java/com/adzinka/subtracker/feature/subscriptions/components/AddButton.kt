@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.feature.subscriptions.core.ui.components
+package com.adzinka.subtracker.feature.subscriptions.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.adzinka.subtracker.core.ui.theme.AppColors
 
 @Composable
-fun AddButton(onClick: () -> Boolean) {
+fun AddButton(onClick: () -> Unit) {
     FloatingActionButton(
         onClick = { onClick() },
         containerColor = AppColors.Purple,
