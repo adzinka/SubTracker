@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.data
+package com.adzinka.subtracker.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -18,7 +18,7 @@ interface SubscriptionDao {
     @Query("SELECT * from subscriptions where id = :id")
     fun getSubscriptionById(id: Int): Flow<SubscriptionEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertSubscription(subscription: SubscriptionEntity)
 
     @Update
@@ -27,4 +27,3 @@ interface SubscriptionDao {
     @Delete
     suspend fun deleteSubscription(subscription: SubscriptionEntity)
 }
-
