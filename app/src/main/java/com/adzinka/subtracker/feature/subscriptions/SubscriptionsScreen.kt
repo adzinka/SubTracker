@@ -18,9 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.adzinka.subtracker.SubTrackerApplication
 import com.adzinka.subtracker.model.SubscriptionStatus
 import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.feature.subscriptions.components.FilterRow
@@ -32,8 +34,12 @@ import com.adzinka.subtracker.model.FilterStatus
 @Composable
 fun SubscriptionsScreen(
     onSubscriptionClick: (Int) -> Unit,
-    viewModel: SubscriptionsViewModel = viewModel(),
-    onAddClick: () -> Unit
+    onAddClick: () -> Unit,
+    viewModel: SubscriptionsViewModel = viewModel(
+        factory = SubscriptionsViewModelFactory(
+            (LocalContext.current.applicationContext as SubTrackerApplication).repository
+        )
+    )
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
