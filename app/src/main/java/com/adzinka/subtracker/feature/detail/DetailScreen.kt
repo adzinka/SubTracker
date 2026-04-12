@@ -16,10 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.adzinka.subtracker.SubTrackerApplication
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.detail.components.ActionButtons
@@ -38,8 +40,8 @@ fun DetailScreen(
     onEditClick: () -> Unit,
     viewModel: DetailViewModel = viewModel(
         factory = DetailViewModelFactory(
-            subscriptionId
-        )
+            subscriptionId,
+            (LocalContext.current.applicationContext as SubTrackerApplication).repository)
     )
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

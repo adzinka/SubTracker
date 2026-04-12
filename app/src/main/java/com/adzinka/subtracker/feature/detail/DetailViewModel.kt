@@ -1,15 +1,21 @@
 package com.adzinka.subtracker.feature.detail
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.adzinka.subtracker.data.repository.SubscriptionRepository
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.detail.components.DetailUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 
 class DetailViewModel(
-    private val subscriptionId: Int
+    private val subscriptionId: Int,
+    private val repository: SubscriptionRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
@@ -20,16 +26,18 @@ class DetailViewModel(
     }
 
     private fun loadSubscription() {
-        // Пока ищем в моковых данных по id
-        val subscription = mockSubscriptions.find { it.id == subscriptionId }
-
-        _uiState.value = if (subscription != null) {
-            DetailUiState.Success(
-                subscription = subscription,
-                payments = mockPayments
-            )
-        } else {
-            DetailUiState.Error("Subscription not found")
+        viewModelScope.launch {
+            combine(
+                repository.getSubscriptionById(subscriptionId),
+                repository.getPaymentsBySubscriptionId(subscriptionId)
+            ) { subscription, payments ->
+                DetailUiState.Success(
+                    subscription = subscription,
+                    payments = payments
+                )
+            }
+                .catch { _uiState.value = DetailUiState.Error(it.message ?: "Unknown error") }
+                .collect { _uiState.value = it }
         }
     }
 
