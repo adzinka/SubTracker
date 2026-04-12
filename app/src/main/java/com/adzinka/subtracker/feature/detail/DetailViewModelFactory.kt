@@ -9,6 +9,6 @@ class DetailViewModelFactory(
     private val repository: SubscriptionRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return DetailViewModel(subscriptionId) as T
+        return DetailViewModel(subscriptionId, repository) as T
     }
 }
