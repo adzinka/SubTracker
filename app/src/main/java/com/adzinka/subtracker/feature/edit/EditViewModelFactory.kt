@@ -2,11 +2,13 @@ package com.adzinka.subtracker.feature.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.adzinka.subtracker.data.repository.SubscriptionRepository
 
 class EditViewModelFactory(
-    private val subscriptionId: Int?
+    private val subscriptionId: Int?,
+    private val repository: SubscriptionRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return EditViewModel(subscriptionId) as T
+        return EditViewModel(subscriptionId, repository) as T
     }
 }
