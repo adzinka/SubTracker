@@ -2,7 +2,7 @@ package com.adzinka.subtracker.feature.subscriptions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.adzinka.subtracker.data.SubscriptionRepository
+import com.adzinka.subtracker.data.repository.SubscriptionRepository
 import com.adzinka.subtracker.model.FilterStatus
 import com.adzinka.subtracker.model.Subscription
 import com.adzinka.subtracker.model.SubscriptionStatus

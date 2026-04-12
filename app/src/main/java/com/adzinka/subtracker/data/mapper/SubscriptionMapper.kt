@@ -1,6 +1,6 @@
 package com.adzinka.subtracker.data.mapper
 
-import com.adzinka.subtracker.data.entity.SubscriptionEntity
+import com.adzinka.subtracker.data.local.entity.SubscriptionEntity
 import com.adzinka.subtracker.model.BillingPeriod
 import com.adzinka.subtracker.model.Category
 import com.adzinka.subtracker.model.Subscription

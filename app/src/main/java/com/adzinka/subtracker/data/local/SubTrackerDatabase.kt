@@ -1,14 +1,14 @@
-package com.adzinka.subtracker.data
+package com.adzinka.subtracker.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.adzinka.subtracker.data.dao.PaymentDao
-import com.adzinka.subtracker.data.dao.SubscriptionDao
-import com.adzinka.subtracker.data.entity.PaymentEntity
-import com.adzinka.subtracker.data.entity.SubscriptionEntity
+import com.adzinka.subtracker.data.local.dao.PaymentDao
+import com.adzinka.subtracker.data.local.dao.SubscriptionDao
+import com.adzinka.subtracker.data.local.entity.PaymentEntity
+import com.adzinka.subtracker.data.local.entity.SubscriptionEntity
 import com.adzinka.subtracker.data.mapper.toEntityModel
 import com.adzinka.subtracker.fake.mockSubscriptions
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +31,7 @@ abstract class SubTrackerDatabase : RoomDatabase() {
                     SubTrackerDatabase::class.java,
                     "subtracker_database"
                 )
-                    .addCallback(object : RoomDatabase.Callback() {
+                    .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
                             INSTANCE?.let { database ->

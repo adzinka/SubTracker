@@ -1,9 +1,9 @@
-package com.adzinka.subtracker.data
+package com.adzinka.subtracker.data.repository
 
-import com.adzinka.subtracker.data.dao.PaymentDao
-import com.adzinka.subtracker.data.dao.SubscriptionDao
-import com.adzinka.subtracker.data.entity.PaymentEntity
-import com.adzinka.subtracker.data.entity.SubscriptionEntity
+import com.adzinka.subtracker.data.local.dao.PaymentDao
+import com.adzinka.subtracker.data.local.dao.SubscriptionDao
+import com.adzinka.subtracker.data.local.entity.PaymentEntity
+import com.adzinka.subtracker.data.local.entity.SubscriptionEntity
 import com.adzinka.subtracker.data.mapper.toDomainModel
 import com.adzinka.subtracker.data.mapper.toEntityModel
 import com.adzinka.subtracker.model.Payment

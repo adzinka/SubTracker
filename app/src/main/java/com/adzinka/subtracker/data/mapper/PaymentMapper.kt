@@ -1,6 +1,6 @@
 package com.adzinka.subtracker.data.mapper
 
-import com.adzinka.subtracker.data.entity.PaymentEntity
+import com.adzinka.subtracker.data.local.entity.PaymentEntity
 import com.adzinka.subtracker.model.Payment
 import com.adzinka.subtracker.model.PaymentStatus
 

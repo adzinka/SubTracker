@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.data
+package com.adzinka.subtracker.data.repository
 
 import com.adzinka.subtracker.model.Payment
 import com.adzinka.subtracker.model.Subscription

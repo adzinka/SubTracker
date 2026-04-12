@@ -2,7 +2,7 @@ package com.adzinka.subtracker.feature.subscriptions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.adzinka.subtracker.data.SubscriptionRepository
+import com.adzinka.subtracker.data.repository.SubscriptionRepository
 
 class SubscriptionsViewModelFactory(
     private val repository: SubscriptionRepository

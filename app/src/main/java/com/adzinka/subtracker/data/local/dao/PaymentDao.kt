@@ -1,11 +1,11 @@
-package com.adzinka.subtracker.data.dao
+package com.adzinka.subtracker.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.adzinka.subtracker.data.entity.PaymentEntity
+import com.adzinka.subtracker.data.local.entity.PaymentEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.core.entity
+package com.adzinka.subtracker.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
