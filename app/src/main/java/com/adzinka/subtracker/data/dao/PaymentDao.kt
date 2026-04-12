@@ -1,4 +1,4 @@
-package com.adzinka.subtracker.data
+package com.adzinka.subtracker.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -13,10 +13,9 @@ interface PaymentDao {
     @Query("SELECT * FROM payments where subscriptionId = :subscriptionId")
     fun getAllPaymentsBySubscriptionId(subscriptionId: Int): Flow<List<PaymentEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertPayment(payment: PaymentEntity)
 
     @Delete
     suspend fun deletePayment(payment: PaymentEntity)
 }
-
