@@ -2,6 +2,7 @@ package com.adzinka.subtracker.model
 
 data class Payment(
     val id: Int,
+    val subscriptionId: Int,
     val date: String,
     val amount: Int,
     val currency: String = "CZK",
