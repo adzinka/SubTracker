@@ -1,32 +1,49 @@
 package com.adzinka.subtracker.feature.subscriptions
 
 import androidx.lifecycle.ViewModel
-import com.adzinka.subtracker.fake.mockSubscriptions
+import androidx.lifecycle.viewModelScope
+import com.adzinka.subtracker.data.SubscriptionRepository
 import com.adzinka.subtracker.model.FilterStatus
 import com.adzinka.subtracker.model.Subscription
 import com.adzinka.subtracker.model.SubscriptionStatus
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 
-class SubscriptionsViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow<SubscriptionsUiState>(SubscriptionsUiState.Loading)
-    val uiState: StateFlow<SubscriptionsUiState> = _uiState.asStateFlow()
+class SubscriptionsViewModel(
+    private val repository: SubscriptionRepository
+) : ViewModel() {
 
-    init {
-        loadSubscriptions()
-    }
+    private val _filterStatus = MutableStateFlow(FilterStatus.ALL)
+    val uiState: StateFlow<SubscriptionsUiState> = combine(
+        repository.getAllSubscriptions(),
+        _filterStatus
+    ) { subscriptions, filter ->
 
-    private fun loadSubscriptions() {
-        // TODO Repository
-        _uiState.value = SubscriptionsUiState.Success(
+        SubscriptionsUiState.Success(
             data = SubscriptionsListUiState(
-                totalMonth = mockSubscriptions.sumOf { it.price },
+                totalMonth = subscriptions.sumOf { it.price },
                 currency = "CZK",
-                soonPayments = mockSubscriptions.count { it.status == SubscriptionStatus.SOON },
-                subscriptionsItems = mockSubscriptions.map { subscriptionToUIState(it) }
+                soonPayments = subscriptions.count { it.status == SubscriptionStatus.SOON },
+                filterStatus = filter,
+                subscriptionsItems = subscriptions.map { subscriptionToUIState(it) }
             )
-        )
+        ) as SubscriptionsUiState
+    }
+    .onStart { emit(SubscriptionsUiState.Loading)  }
+    .catch { emit(SubscriptionsUiState.Error(it.message ?: "Unknown error")) }
+    .stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = SubscriptionsUiState.Loading
+    )
+
+    fun onFilterSelected(filter: FilterStatus) {
+        _filterStatus.value = filter
     }
 
     private fun subscriptionToUIState(subscription: Subscription) = SubscriptionsItemUiState(
@@ -40,12 +57,5 @@ class SubscriptionsViewModel : ViewModel() {
         category = subscription.category
     )
 
-    fun onFilterSelected(filter: FilterStatus) {
-        val current = _uiState.value
-        if (current is SubscriptionsUiState.Success) {
-            _uiState.value = SubscriptionsUiState.Success(
-                current.data.copy(filterStatus = filter)
-            )
-        }
-    }
+
 }
