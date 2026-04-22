@@ -71,7 +71,11 @@ fun AppNavigation() {
                     is EditRoute -> NavEntry(key) {
                         EditScreen(
                             subscriptionId = key.subscriptionId,
-                            onBackClick = { backStack.removeLastOrNull() }
+                            onBackClick = { backStack.removeLastOrNull() },
+                            onDeleteSuccess = {
+                                backStack.removeLastOrNull()
+                                backStack.removeLastOrNull()
+                            }
                         )
                     }
                     is CalendarRoute -> NavEntry(key) { CalendarScreen() }
