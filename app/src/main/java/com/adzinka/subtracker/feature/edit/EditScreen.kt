@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.adzinka.subtracker.SubTrackerApplication
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.edit.components.BillingPeriodSelector
 import com.adzinka.subtracker.feature.edit.components.CategoryPicker
@@ -31,12 +34,29 @@ fun EditScreen(
     subscriptionId: Int?,
     onBackClick: () -> Unit,
     viewModel: EditViewModel = viewModel(
-        factory = EditViewModelFactory(subscriptionId)
-    )
+        factory = EditViewModelFactory(
+            subscriptionId,
+            (LocalContext.current.applicationContext as SubTrackerApplication).repository
+        )
+    ),
+    onDeleteSuccess: () -> Unit
 ) {
+
+    LaunchedEffect("navigateBack") {
+        viewModel.navigateBack.collect {
+            onBackClick()
+        }
+    }
+
+    LaunchedEffect("navigateMainScreen") {
+        viewModel.navigateMainScreen.collect {
+            onDeleteSuccess()
+        }
+    }
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val title = if (subscriptionId != null) "Upravit podpis" else "Nový podpis"
+    val title = if (subscriptionId != null) "Edit subscription" else "New subscription"
 
     when (val state = uiState) {
         is EditUiState.Loading -> { /* TODO */ }
