@@ -1,13 +1,17 @@
 package com.adzinka.subtracker.feature.edit
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adzinka.subtracker.data.repository.SubscriptionRepository
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.model.BillingPeriod
 import com.adzinka.subtracker.model.Category
+import com.adzinka.subtracker.model.Subscription
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -18,6 +22,12 @@ class EditViewModel(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<EditUiState>(EditUiState.Loading)
     val uiState: StateFlow<EditUiState> = _uiState.asStateFlow()
+
+    private val _navigateBack = MutableSharedFlow<Unit>()
+    val navigateBack = _navigateBack.asSharedFlow()
+
+    private val _navigateMainScreen = MutableSharedFlow<Unit>()
+    val navigateMainScreen = _navigateMainScreen.asSharedFlow()
 
     init { load() }
 
@@ -66,10 +76,46 @@ class EditViewModel(
     fun onReminderDaysSelected(days: Int) = update { copy(reminderDays = days) }
 
     fun onSaveClick() {
-        // TODO
+        val state = _uiState.value as? EditUiState.Success ?: return
+        val form = state.form
+        val subscription = Subscription(
+            id = form.id,
+            name = form.name,
+            category = form.category,
+            price = form.price.toInt(),
+            currency = form.currency,
+            billingPeriod = form.billingPeriod,
+            nextPaymentDate = form.nextPaymentDate,
+            notes = form.notes.ifBlank { null },
+            reminderDays = if (form.reminderEnabled) form.reminderDays else null
+        )
+        viewModelScope.launch {
+            if (subscriptionId != null) {
+                repository.updateSubscription(subscription)
+            } else {
+                repository.insertSubscription(subscription)
+            }
+            _navigateBack.emit(Unit)
+        }
     }
 
     fun onDeleteClick() {
-        // TODO
+        val state = _uiState.value as? EditUiState.Success ?: return
+        val form = state.form
+        val subscription = Subscription(
+            id = form.id,
+            name = form.name,
+            category = form.category,
+            price = form.price.toInt(),
+            currency = form.currency,
+            billingPeriod = form.billingPeriod,
+            nextPaymentDate = form.nextPaymentDate,
+            notes = form.notes.ifBlank { null },
+            reminderDays = if (form.reminderEnabled) form.reminderDays else null
+        )
+        viewModelScope.launch {
+            repository.deleteSubscription(subscription)
+            _navigateMainScreen.emit(Unit)
+        }
     }
 }
