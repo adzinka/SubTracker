@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.adzinka.subtracker.SubTrackerApplication
@@ -36,11 +37,7 @@ import com.adzinka.subtracker.model.FilterStatus
 fun SubscriptionsScreen(
     onSubscriptionClick: (Int) -> Unit,
     onAddClick: () -> Unit,
-    viewModel: SubscriptionsViewModel = viewModel(
-        factory = SubscriptionsViewModelFactory(
-            (LocalContext.current.applicationContext as SubTrackerApplication).repository
-        )
-    )
+    viewModel: SubscriptionsViewModel = hiltViewModel()
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

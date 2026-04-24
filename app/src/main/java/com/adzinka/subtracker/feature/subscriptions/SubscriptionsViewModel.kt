@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class SubscriptionsViewModel @Inject constructor(
-    private val repository: SubscriptionRepository
+    repository: SubscriptionRepository
 ) : ViewModel() {
 
     private val _filterStatus = MutableStateFlow(FilterStatus.ALL)

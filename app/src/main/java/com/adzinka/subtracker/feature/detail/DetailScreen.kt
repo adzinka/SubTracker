@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.adzinka.subtracker.SubTrackerApplication
@@ -38,10 +39,8 @@ fun DetailScreen(
     subscriptionId: Int,
     onBackClick: () -> Unit,
     onEditClick: () -> Unit,
-    viewModel: DetailViewModel = viewModel(
-        factory = DetailViewModelFactory(
-            subscriptionId,
-            (LocalContext.current.applicationContext as SubTrackerApplication).repository)
+    viewModel: DetailViewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory>(
+        creationCallback = { factory -> factory.create(subscriptionId) }
     )
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
