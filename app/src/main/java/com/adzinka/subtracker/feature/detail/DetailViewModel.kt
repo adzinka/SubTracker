@@ -6,6 +6,11 @@ import com.adzinka.subtracker.data.repository.SubscriptionRepository
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.detail.components.DetailUiState
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,11 +18,16 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
-class DetailViewModel(
-    private val subscriptionId: Int,
+@HiltViewModel(assistedFactory = DetailViewModel.Factory::class)
+class DetailViewModel @AssistedInject constructor(
+    @Assisted private val subscriptionId: Int,
     private val repository: SubscriptionRepository
 ) : ViewModel() {
 
+    @AssistedFactory
+    interface Factory {
+        fun create(subscriptionId: Int): DetailViewModel
+    }
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
     val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
 

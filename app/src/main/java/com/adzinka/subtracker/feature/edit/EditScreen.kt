@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.adzinka.subtracker.SubTrackerApplication
@@ -33,12 +34,13 @@ import com.adzinka.subtracker.model.Category
 fun EditScreen(
     subscriptionId: Int?,
     onBackClick: () -> Unit,
-    viewModel: EditViewModel = viewModel(
-        factory = EditViewModelFactory(
-            subscriptionId,
-            (LocalContext.current.applicationContext as SubTrackerApplication).repository
+    viewModel: EditViewModel = if (subscriptionId != null) {
+        hiltViewModel<EditViewModel, EditViewModel.Factory>(
+            creationCallback = { factory -> factory.create(subscriptionId ?: -1) }
         )
-    ),
+    } else {
+        hiltViewModel()
+    },
     onDeleteSuccess: () -> Unit
 ) {
 

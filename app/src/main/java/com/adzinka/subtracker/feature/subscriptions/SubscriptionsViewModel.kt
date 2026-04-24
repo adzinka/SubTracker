@@ -6,6 +6,8 @@ import com.adzinka.subtracker.data.repository.SubscriptionRepository
 import com.adzinka.subtracker.model.FilterStatus
 import com.adzinka.subtracker.model.Subscription
 import com.adzinka.subtracker.model.SubscriptionStatus
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,8 +16,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 
-class SubscriptionsViewModel(
-    private val repository: SubscriptionRepository
+@HiltViewModel
+class SubscriptionsViewModel @Inject constructor(
+    repository: SubscriptionRepository
 ) : ViewModel() {
 
     private val _filterStatus = MutableStateFlow(FilterStatus.ALL)
