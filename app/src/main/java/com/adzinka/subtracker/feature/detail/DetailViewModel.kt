@@ -6,6 +6,8 @@ import com.adzinka.subtracker.data.repository.SubscriptionRepository
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.detail.components.DetailUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +15,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
-class DetailViewModel(
+@HiltViewModel
+class DetailViewModel @Inject constructor(
     private val subscriptionId: Int,
     private val repository: SubscriptionRepository
 ) : ViewModel() {
