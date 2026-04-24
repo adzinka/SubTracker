@@ -3,13 +3,7 @@ package com.adzinka.subtracker
 import android.app.Application
 import com.adzinka.subtracker.data.repository.OfflineSubscriptionRepository
 import com.adzinka.subtracker.data.local.SubTrackerDatabase
+import dagger.hilt.android.HiltAndroidApp
 
-class SubTrackerApplication : Application() {
-    val database by lazy { SubTrackerDatabase.getDatabase(this) }
-    val repository by lazy {
-        OfflineSubscriptionRepository(
-            database.subscriptionDao(),
-            database.paymentDao()
-        )
-    }
-}
+@HiltAndroidApp
+class SubTrackerApplication : Application()
