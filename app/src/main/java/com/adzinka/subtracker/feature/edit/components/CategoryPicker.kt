@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adzinka.subtracker.core.ui.theme.color
 import com.adzinka.subtracker.model.Category
 
 @Composable
@@ -50,8 +51,8 @@ fun CategoryChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val borderColor = if (isSelected) Color(category.iconColor) else Color(0xFFE0E0E0)
-    val bgColor = if (isSelected) Color(category.iconColor).copy(alpha = 0.08f) else Color.White
+    val borderColor = if (isSelected) category.color else Color(0xFFE0E0E0)
+    val bgColor = if (isSelected) category.color.copy(alpha = 0.08f) else Color.White
 
     Box(
         modifier = modifier
@@ -66,9 +67,9 @@ fun CategoryChip(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(text = category.iconEmoji, fontSize = 14.sp)
+            //Text(text = category.iconEmoji, fontSize = 14.sp)
             Text(
-                text = category.categoryName,
+                text = category.name,
                 fontSize = 12.sp,
                 fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
                 color = borderColor

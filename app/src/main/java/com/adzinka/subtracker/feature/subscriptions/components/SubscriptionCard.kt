@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adzinka.subtracker.core.ui.theme.AppColors
+import com.adzinka.subtracker.core.ui.theme.color
 import com.adzinka.subtracker.core.util.formatPrice
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.subscriptions.SubscriptionsItemUiState
@@ -50,8 +51,8 @@ fun SubscriptionCard(
                 .padding(16.dp)
         ) {
             SubscriptionIcon(
-                emoji = subscription.category.iconEmoji,
-                backgroundColor = Color(subscription.category.iconColor).copy(alpha = 0.15f)
+                emoji = "0",
+                backgroundColor = subscription.category.color.copy(alpha = 0.15f)
             )
 
             Spacer(modifier = Modifier.width(12.dp))

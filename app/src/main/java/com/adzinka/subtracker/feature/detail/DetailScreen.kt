@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.adzinka.subtracker.SubTrackerApplication
+import com.adzinka.subtracker.core.ui.theme.iconRes
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.fake.mockSubscriptions
 import com.adzinka.subtracker.feature.detail.components.ActionButtons
@@ -79,18 +80,18 @@ private fun DetailContent(
     ) {
 
         item {
-            DetailHeader(
-                name = subscription.name,
-                price = subscription.price,
-                currency = subscription.currency,
-                period = subscription.billingPeriod.label,
-                nextPaymentDate = subscription.nextPaymentDate,
-                status = subscription.status,
-                iconEmoji = subscription.category.iconEmoji,
-                headerColor = Color(subscription.category.iconColor),
-                onBackClick = onBackClick,
-                onEditClick = onEditClick
-            )
+//            DetailHeader(
+//                name = subscription.name,
+//                price = subscription.price,
+//                currency = subscription.currency,
+//                period = subscription.billingPeriod.label,
+//                nextPaymentDate = subscription.nextPaymentDate,
+//                status = subscription.status,
+//                iconEmoji = subscription.category.iconRes,
+//                headerColor = Color(subscription.category.iconColor),
+//                onBackClick = onBackClick,
+//                onEditClick = onEditClick
+//            )
         }
 
         item {
