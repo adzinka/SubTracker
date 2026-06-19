@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">SubTracker</string>
+
+    <plurals name="days_until_payment">
+        <item quantity="one">%d den</item>
+        <item quantity="few">%d dny</item>
+        <item quantity="many">%d dne</item>
+        <item quantity="other">%d dní</item>
+    </plurals>
+    <string name="badge_tomorrow">Zítra</string>
+    <string name="badge_soon">Brzy</string>
+    <string name="badge_paused">Pauza</string>
+</resources>

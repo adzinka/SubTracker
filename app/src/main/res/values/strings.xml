@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SubTracker</string>
+
+    <plurals name="days_until_payment">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <string name="badge_tomorrow">Tomorrow</string>
+    <string name="badge_soon">Soon</string>
+    <string name="badge_paused">Paused</string>
+
 </resources>

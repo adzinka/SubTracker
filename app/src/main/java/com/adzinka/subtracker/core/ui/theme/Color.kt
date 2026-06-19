@@ -63,6 +63,8 @@ object AppColors {
     val Warning = Color(0xFFF59E0B)
     val Danger = Color(0xFFEF4444)
     val Info = Color(0xFF3B82F6)
+
+    val BadgeYellow = Color(0xFFEECA4B)
     // endregion
 
     // region Neutrals
