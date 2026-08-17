@@ -1,6 +1,7 @@
 package com.adzinka.subtracker.di
 
 import android.content.Context
+import androidx.room.Room
 import com.adzinka.subtracker.data.local.SubTrackerDatabase
 import com.adzinka.subtracker.data.local.dao.PaymentDao
 import com.adzinka.subtracker.data.local.dao.SubscriptionDao
@@ -11,6 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.time.Clock
 import javax.inject.Singleton
 
 @Module
@@ -20,7 +22,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): SubTrackerDatabase =
-        SubTrackerDatabase.getDatabase(context)
+        Room.databaseBuilder(context, SubTrackerDatabase::class.java, "subtracker_database")
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
 
     @Provides
     @Singleton
@@ -39,5 +43,9 @@ object AppModule {
         paymentDao: PaymentDao
     ): SubscriptionRepository =
         OfflineSubscriptionRepository(subscriptionDao, paymentDao)
+
+    @Provides
+    @Singleton
+    fun provideClock(): Clock = Clock.systemDefaultZone()
 
 }
