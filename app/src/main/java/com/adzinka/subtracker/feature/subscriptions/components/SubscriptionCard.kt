@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adzinka.subtracker.core.ui.formatShort
 import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.core.util.formatPrice
 import com.adzinka.subtracker.fake.mockSubscriptions
@@ -81,7 +82,7 @@ fun SubscriptionCard(
                 Spacer(modifier = Modifier.height(2.dp))
 
                 Text(
-                    text = "${subscription.category}  ·  ${subscription.nextPaymentDate}",
+                    text = "${subscription.category.categoryName}  ·  ${subscription.nextPaymentDate.formatShort()}",
                     fontSize = 12.sp,
                     color = AppColors.TextSecondary
                 )

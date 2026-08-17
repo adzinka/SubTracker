@@ -1,5 +1,7 @@
 package com.adzinka.subtracker
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -10,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavEntry
@@ -48,41 +51,43 @@ fun AppNavigation() {
                 )
             }
         }
-    ) { _ ->
-        NavDisplay(
-            backStack = backStack,
-            onBack = { backStack.removeLastOrNull() },
-            entryProvider = { key ->
-                check(key is AppRoute) { "Unknown route: $key" }
-                when (key) {
-                    is AppRoute.SubscriptionsRoute -> NavEntry(key) {
-                        SubscriptionsScreen(
-                            onSubscriptionClick = { id -> backStack.add(AppRoute.DetailRoute(id)) },
-                            onAddClick = { backStack.add(AppRoute.EditRoute()) }
-                        )
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            NavDisplay(
+                backStack = backStack,
+                onBack = { backStack.removeLastOrNull() },
+                entryProvider = { key ->
+                    check(key is AppRoute) { "Unknown route: $key" }
+                    when (key) {
+                        is AppRoute.SubscriptionsRoute -> NavEntry(key) {
+                            SubscriptionsScreen(
+                                onSubscriptionClick = { id -> backStack.add(AppRoute.DetailRoute(id)) },
+                                onAddClick = { backStack.add(AppRoute.EditRoute()) }
+                            )
+                        }
+                        is AppRoute.DetailRoute -> NavEntry(key) {
+                            DetailScreen(
+                                subscriptionId = key.subscriptionId,
+                                onBackClick = { backStack.removeLastOrNull() },
+                                onEditClick = { backStack.add(AppRoute.EditRoute(key.subscriptionId)) }
+                            )
+                        }
+                        is AppRoute.EditRoute -> NavEntry(key) {
+                            EditScreen(
+                                subscriptionId = key.subscriptionId,
+                                onBackClick = { backStack.removeLastOrNull() },
+                                onDeleteSuccess = {
+                                    backStack.removeLastOrNull()
+                                    backStack.removeLastOrNull()
+                                }
+                            )
+                        }
+                        is AppRoute.StatsRoute -> NavEntry(key) { StatsScreen() }
+                        is AppRoute.SettingsRoute -> NavEntry(key) { SettingsScreen() }
                     }
-                    is AppRoute.DetailRoute -> NavEntry(key) {
-                        DetailScreen(
-                            subscriptionId = key.subscriptionId,
-                            onBackClick = { backStack.removeLastOrNull() },
-                            onEditClick = { backStack.add(AppRoute.EditRoute(key.subscriptionId)) }
-                        )
-                    }
-                    is AppRoute.EditRoute -> NavEntry(key) {
-                        EditScreen(
-                            subscriptionId = key.subscriptionId,
-                            onBackClick = { backStack.removeLastOrNull() },
-                            onDeleteSuccess = {
-                                backStack.removeLastOrNull()
-                                backStack.removeLastOrNull()
-                            }
-                        )
-                    }
-                    is AppRoute.StatsRoute -> NavEntry(key) { StatsScreen() }
-                    is AppRoute.SettingsRoute -> NavEntry(key) { SettingsScreen() }
                 }
-            }
-        )
+            )
+        }
     }
 }
 

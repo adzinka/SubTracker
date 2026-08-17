@@ -26,4 +26,7 @@ interface SubscriptionDao {
 
     @Delete
     suspend fun deleteSubscription(subscription: SubscriptionEntity)
+
+    @Query("DELETE FROM subscriptions WHERE id = :id")
+    suspend fun deleteSubscriptionById(id: Int)
 }

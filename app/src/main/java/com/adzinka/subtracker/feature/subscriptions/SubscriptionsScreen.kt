@@ -73,15 +73,6 @@ private fun SubscriptionsContent(
     onAddClick: () -> Unit
 ) {
 
-    val filteredSubscriptions = remember(data.filterStatus, data.subscriptionsItems) {
-        when (data.filterStatus) {
-            FilterStatus.ALL -> data.subscriptionsItems
-            FilterStatus.ACTIVE -> data.subscriptionsItems.filter { it.status == SubscriptionStatus.ACTIVE }
-            FilterStatus.PAUSED -> data.subscriptionsItems.filter { it.status == SubscriptionStatus.PAUSED }
-            FilterStatus.SOON -> data.subscriptionsItems.filter { it.status == SubscriptionStatus.SOON }
-        }
-    }
-
     Scaffold(
         floatingActionButton = {
             AddButton(onClick = onAddClick)
@@ -121,7 +112,7 @@ private fun SubscriptionsContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
-                    items = filteredSubscriptions,
+                    items = data.subscriptionsItems,
                     key = { it.id }
                 ) { item ->
                     SubscriptionCard(

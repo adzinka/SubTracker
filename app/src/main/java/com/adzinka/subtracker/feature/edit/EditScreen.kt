@@ -1,14 +1,18 @@
 package com.adzinka.subtracker.feature.edit
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,19 +33,16 @@ import com.adzinka.subtracker.feature.edit.components.PriceRow
 import com.adzinka.subtracker.feature.edit.components.ReminderSection
 import com.adzinka.subtracker.model.BillingPeriod
 import com.adzinka.subtracker.model.Category
+import java.time.LocalDate
 
 @Composable
 fun EditScreen(
     subscriptionId: Int?,
     onBackClick: () -> Unit,
-    viewModel: EditViewModel = if (subscriptionId != null) {
-        hiltViewModel<EditViewModel, EditViewModel.Factory>(
-            creationCallback = { factory -> factory.create(subscriptionId ?: -1) }
-        )
-    } else {
-        hiltViewModel()
-    },
-    onDeleteSuccess: () -> Unit
+    onDeleteSuccess: () -> Unit,
+    viewModel: EditViewModel = hiltViewModel<EditViewModel, EditViewModel.Factory>(
+        creationCallback = { factory -> factory.create(subscriptionId) }
+    )
 ) {
 
     LaunchedEffect("navigateBack") {
@@ -58,15 +59,26 @@ fun EditScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val title = if (subscriptionId != null) "Edit subscription" else "New subscription"
+    val isEditMode = subscriptionId != null
+
+    val title = if (isEditMode) "Upravit předplatné" else "Nové předplatné"
 
     when (val state = uiState) {
-        is EditUiState.Loading -> { /* TODO */ }
-        is EditUiState.Error -> { /* TODO */ }
+        is EditUiState.Loading -> {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        }
+        is EditUiState.Error -> {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(state.message)
+            }
+        }
         is EditUiState.Success -> {
             EditContent(
                 form = state.form,
                 title = title,
+                isEditMode = isEditMode,
                 onBackClick = onBackClick,
                 onSaveClick = viewModel::onSaveClick,
                 onNameChange = viewModel::onNameChange,
@@ -88,6 +100,7 @@ fun EditScreen(
 private fun EditContent(
     form: EditFormState,
     title: String,
+    isEditMode: Boolean,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
     onNameChange: (String) -> Unit,
@@ -95,14 +108,19 @@ private fun EditContent(
     onPriceChange: (String) -> Unit,
     onCurrencyChange: (String) -> Unit,
     onBillingPeriodSelected: (BillingPeriod) -> Unit,
-    onDateChange: (String) -> Unit,
+    onDateChange: (LocalDate) -> Unit,
     onNotesChange: (String) -> Unit,
     onReminderToggle: (Boolean) -> Unit,
     onReminderDaysSelected: (Int) -> Unit,
     onDeleteClick: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        EditTopBar(title, onBackClick = onBackClick, onSaveClick = onSaveClick)
+        EditTopBar(
+            title = title,
+            isSaveEnabled = form.isValid,
+            onBackClick = onBackClick,
+            onSaveClick = onSaveClick
+        )
 
         Column(
             modifier = Modifier
@@ -126,7 +144,9 @@ private fun EditContent(
                 onToggle = onReminderToggle,
                 onDaysSelected = onReminderDaysSelected
             )
-            DeleteButton(onClick = onDeleteClick)
+            if (isEditMode) {
+                DeleteButton(onClick = onDeleteClick)
+            }
         }
     }
 }
@@ -150,6 +170,7 @@ fun EditContentPreview() {
             reminderDays = subscription.reminderDays ?: 3
         ),
         title = "New subscription",
+        isEditMode = true,
         onBackClick = {},
         onSaveClick = {},
         onNameChange = {},

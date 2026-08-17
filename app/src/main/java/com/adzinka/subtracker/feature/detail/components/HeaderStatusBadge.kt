@@ -16,28 +16,39 @@ import androidx.compose.ui.unit.sp
 import com.adzinka.subtracker.model.SubscriptionStatus
 import com.adzinka.subtracker.model.SubscriptionStatus.ACTIVE
 import com.adzinka.subtracker.model.SubscriptionStatus.PAUSED
-import com.adzinka.subtracker.model.SubscriptionStatus.SOON
 
+private data class StatusStyle(
+    val label: String,
+    val background: Color,
+    val content: Color
+)
 @Composable
 fun HeaderStatusBadge(status: SubscriptionStatus) {
-    val (label, bgColor, textColor) = when (status) {
-        ACTIVE -> Triple("Aktivní", Color.White.copy(alpha = 0.25f), Color.White)
-        SOON -> Triple("Brzy", Color.White.copy(alpha = 0.25f), Color.White)
-        PAUSED -> Triple("Pozastaveno", Color(0xFFFFF3E0), Color(0xFFFF9800))
+    val style = when (status) {
+        SubscriptionStatus.ACTIVE -> StatusStyle(
+            label = "Aktivní",
+            background = Color.White.copy(alpha = 0.25f),
+            content = Color.White
+        )
+        SubscriptionStatus.PAUSED -> StatusStyle(
+            label = "Pozastaveno",
+            background = Color(0xFFFFF3E0),
+            content = Color(0xFFFF9800)
+        )
     }
 
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
-            .background(bgColor)
+            .background(style.background)
             .padding(horizontal = 12.dp, vertical = 6.dp)
     ) {
-        Text(text = label, color = textColor, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+        Text(text = style.label, color = style.content, fontSize = 13.sp, fontWeight = FontWeight.Medium)
     }
 }
 
 @Preview
 @Composable
 fun HeaderStatusBadgePreview() {
-    HeaderStatusBadge(SubscriptionStatus.SOON)
+    HeaderStatusBadge(SubscriptionStatus.ACTIVE)
 }
