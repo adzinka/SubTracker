@@ -94,7 +94,7 @@ private fun AppBottomBar(
     data class TabItem(val route: NavKey, val label: String, val iconRes: Int)
 
     val tabs = listOf(
-        TabItem(SubscriptionsRoute, "Podpisy",   R.drawable.ic_subscriptions),
+        TabItem(SubscriptionsRoute, "Předplatná",   R.drawable.ic_subscriptions),
         TabItem(StatsRoute,         "Přehledy",  R.drawable.ic_stats),
         TabItem(SettingsRoute,      "Nastavení", R.drawable.ic_settings)
     )
