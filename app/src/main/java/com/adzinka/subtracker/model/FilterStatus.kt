@@ -1,5 +1,8 @@
 package com.adzinka.subtracker.model
 
-enum class FilterStatus{
-    ALL, ACTIVE, PAUSED, SOON
+enum class FilterStatus(val label: String) {
+    ALL("Vše"),
+    ACTIVE("Aktivní"),
+    PAUSED("Pozastavené"),
+    SOON("Brzy")
 }
