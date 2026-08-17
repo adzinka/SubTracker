@@ -17,7 +17,6 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.adzinka.subtracker.core.ui.theme.AppColors
-import com.adzinka.subtracker.feature.calendar.CalendarScreen
 import com.adzinka.subtracker.feature.detail.DetailScreen
 import com.adzinka.subtracker.feature.edit.EditScreen
 import com.adzinka.subtracker.feature.settings.SettingsScreen
@@ -27,7 +26,7 @@ import com.adzinka.subtracker.feature.subscriptions.SubscriptionsScreen
 @Composable
 fun AppNavigation() {
 
-    val backStack = rememberNavBackStack(SubscriptionsRoute)
+    val backStack = rememberNavBackStack(AppRoute.SubscriptionsRoute)
 
     val currentRoot by remember {
         derivedStateOf { backStack.firstOrNull() }
@@ -54,21 +53,22 @@ fun AppNavigation() {
             backStack = backStack,
             onBack = { backStack.removeLastOrNull() },
             entryProvider = { key ->
+                check(key is AppRoute) { "Unknown route: $key" }
                 when (key) {
-                    is SubscriptionsRoute -> NavEntry(key) {
+                    is AppRoute.SubscriptionsRoute -> NavEntry(key) {
                         SubscriptionsScreen(
-                            onSubscriptionClick = { id -> backStack.add(DetailRoute(id)) },
-                            onAddClick = { backStack.add(EditRoute()) }
+                            onSubscriptionClick = { id -> backStack.add(AppRoute.DetailRoute(id)) },
+                            onAddClick = { backStack.add(AppRoute.EditRoute()) }
                         )
                     }
-                    is DetailRoute -> NavEntry(key) {
+                    is AppRoute.DetailRoute -> NavEntry(key) {
                         DetailScreen(
                             subscriptionId = key.subscriptionId,
                             onBackClick = { backStack.removeLastOrNull() },
-                            onEditClick = { backStack.add(EditRoute(key.subscriptionId)) }
+                            onEditClick = { backStack.add(AppRoute.EditRoute(key.subscriptionId)) }
                         )
                     }
-                    is EditRoute -> NavEntry(key) {
+                    is AppRoute.EditRoute -> NavEntry(key) {
                         EditScreen(
                             subscriptionId = key.subscriptionId,
                             onBackClick = { backStack.removeLastOrNull() },
@@ -78,10 +78,8 @@ fun AppNavigation() {
                             }
                         )
                     }
-                    is CalendarRoute -> NavEntry(key) { CalendarScreen() }
-                    is StatsRoute -> NavEntry(key) { StatsScreen() }
-                    is SettingsRoute -> NavEntry(key) { SettingsScreen() }
-                    else -> NavEntry(Unit as NavKey) { Text("Unknown route") }
+                    is AppRoute.StatsRoute -> NavEntry(key) { StatsScreen() }
+                    is AppRoute.SettingsRoute -> NavEntry(key) { SettingsScreen() }
                 }
             }
         )
@@ -96,10 +94,9 @@ private fun AppBottomBar(
     data class TabItem(val route: NavKey, val label: String, val iconRes: Int)
 
     val tabs = listOf(
-        TabItem(SubscriptionsRoute, "Podpisy",   R.drawable.ic_subscriptions),
-        TabItem(CalendarRoute,      "Kalendář",  R.drawable.ic_calendar),
-        TabItem(StatsRoute,         "Přehledy",  R.drawable.ic_stats),
-        TabItem(SettingsRoute,      "Nastavení", R.drawable.ic_settings)
+        TabItem(AppRoute.SubscriptionsRoute, "Předplatná",   R.drawable.ic_subscriptions),
+        TabItem(AppRoute.StatsRoute,         "Přehledy",  R.drawable.ic_stats),
+        TabItem(AppRoute.SettingsRoute,      "Nastavení", R.drawable.ic_settings)
     )
 
     NavigationBar(
