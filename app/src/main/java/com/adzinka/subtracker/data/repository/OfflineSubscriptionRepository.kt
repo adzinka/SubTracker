@@ -35,6 +35,10 @@ class OfflineSubscriptionRepository(
         subscriptionDao.deleteSubscription(subscription.toEntityModel())
     }
 
+    override suspend fun deleteSubscriptionById(id: Int) {
+        subscriptionDao.deleteSubscriptionById(id)
+    }
+
     override fun getPaymentsBySubscriptionId(subscriptionId: Int): Flow<List<Payment>> {
         return paymentDao.getAllPaymentsBySubscriptionId(subscriptionId).map { it.map(PaymentEntity::toDomainModel) }
     }
