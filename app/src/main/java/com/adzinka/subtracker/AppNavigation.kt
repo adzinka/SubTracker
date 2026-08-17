@@ -17,7 +17,6 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.adzinka.subtracker.core.ui.theme.AppColors
-import com.adzinka.subtracker.feature.calendar.CalendarScreen
 import com.adzinka.subtracker.feature.detail.DetailScreen
 import com.adzinka.subtracker.feature.edit.EditScreen
 import com.adzinka.subtracker.feature.settings.SettingsScreen
@@ -78,7 +77,6 @@ fun AppNavigation() {
                             }
                         )
                     }
-                    is CalendarRoute -> NavEntry(key) { CalendarScreen() }
                     is StatsRoute -> NavEntry(key) { StatsScreen() }
                     is SettingsRoute -> NavEntry(key) { SettingsScreen() }
                     else -> NavEntry(Unit as NavKey) { Text("Unknown route") }
@@ -97,7 +95,6 @@ private fun AppBottomBar(
 
     val tabs = listOf(
         TabItem(SubscriptionsRoute, "Podpisy",   R.drawable.ic_subscriptions),
-        TabItem(CalendarRoute,      "Kalendář",  R.drawable.ic_calendar),
         TabItem(StatsRoute,         "Přehledy",  R.drawable.ic_stats),
         TabItem(SettingsRoute,      "Nastavení", R.drawable.ic_settings)
     )
