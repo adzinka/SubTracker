@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.time.LocalDate
 
 @Entity(
     tableName = "payments",
@@ -20,7 +21,7 @@ import androidx.room.PrimaryKey
 data class PaymentEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val subscriptionId: Int,
-    val date: String,
+    val date: LocalDate,
     val amount: Int,
     val currency: String = "CZK",
     val status: String

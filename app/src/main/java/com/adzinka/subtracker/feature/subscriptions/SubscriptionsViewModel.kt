@@ -6,6 +6,7 @@ import com.adzinka.subtracker.data.repository.SubscriptionRepository
 import com.adzinka.subtracker.model.FilterStatus
 import com.adzinka.subtracker.model.Subscription
 import com.adzinka.subtracker.model.SubscriptionStatus
+import com.adzinka.subtracker.model.monthlyTotal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +16,13 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import java.time.Clock
+import java.time.LocalDate
 
 @HiltViewModel
 class SubscriptionsViewModel @Inject constructor(
-    repository: SubscriptionRepository
+    repository: SubscriptionRepository,
+    private val clock: Clock
 ) : ViewModel() {
 
     private val _filterStatus = MutableStateFlow(FilterStatus.ALL)
@@ -26,14 +30,22 @@ class SubscriptionsViewModel @Inject constructor(
         repository.getAllSubscriptions(),
         _filterStatus
     ) { subscriptions, filter ->
+        val today = LocalDate.now(clock)
+
+        val visible = when (filter) {
+            FilterStatus.ALL -> subscriptions
+            FilterStatus.ACTIVE -> subscriptions.filter { it.status == SubscriptionStatus.ACTIVE }
+            FilterStatus.PAUSED -> subscriptions.filter { it.status == SubscriptionStatus.PAUSED }
+            FilterStatus.SOON -> subscriptions.filter { it.isSoon(today) }
+        }
 
         SubscriptionsUiState.Success(
             data = SubscriptionsListUiState(
-                totalMonth = subscriptions.sumOf { it.price },
+                totalMonth = subscriptions.monthlyTotal(),
                 currency = "CZK",
-                soonPayments = subscriptions.count { it.status == SubscriptionStatus.SOON },
+                soonPayments = subscriptions.count { it.isSoon(today) },
                 filterStatus = filter,
-                subscriptionsItems = subscriptions.map { subscriptionToUIState(it) }
+                subscriptionsItems = visible.map { it.toItemUiState(today) }
             )
         ) as SubscriptionsUiState
     }
@@ -48,17 +60,4 @@ class SubscriptionsViewModel @Inject constructor(
     fun onFilterSelected(filter: FilterStatus) {
         _filterStatus.value = filter
     }
-
-    private fun subscriptionToUIState(subscription: Subscription) = SubscriptionsItemUiState(
-        id = subscription.id,
-        name = subscription.name,
-        price = subscription.price,
-        currency = subscription.currency,
-        nextPaymentDate = subscription.nextPaymentDate,
-        billingPeriod = subscription.billingPeriod,
-        status = subscription.status,
-        category = subscription.category
-    )
-
-
 }

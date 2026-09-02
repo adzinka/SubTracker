@@ -1,14 +1,16 @@
 package com.adzinka.subtracker.feature.subscriptions
 
+import com.adzinka.subtracker.core.ui.UrgencyState
 import com.adzinka.subtracker.model.BillingPeriod
 import com.adzinka.subtracker.model.Category
 import com.adzinka.subtracker.model.FilterStatus
 import com.adzinka.subtracker.model.SubscriptionStatus
+import java.time.LocalDate
 
-sealed class SubscriptionsUiState {
-    object Loading : SubscriptionsUiState()
-    data class Success(val data: SubscriptionsListUiState) : SubscriptionsUiState()
-    data class Error(val message: String) : SubscriptionsUiState()
+sealed interface SubscriptionsUiState {
+    data object Loading : SubscriptionsUiState
+    data class Success(val data: SubscriptionsListUiState) : SubscriptionsUiState
+    data class Error(val message: String) : SubscriptionsUiState
 }
 
 data class SubscriptionsListUiState(
@@ -24,8 +26,9 @@ data class SubscriptionsItemUiState(
     val name: String,
     val price: Int,
     val currency: String,
-    val nextPaymentDate: String,
+    val nextPaymentDate: LocalDate,
     val billingPeriod: BillingPeriod,
     val status: SubscriptionStatus,
-    val category: Category
+    val category: Category,
+    val urgency: UrgencyState
 )

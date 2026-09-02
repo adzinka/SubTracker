@@ -10,6 +10,7 @@ interface SubscriptionRepository {
     suspend fun insertSubscription(subscription: Subscription)
     suspend fun updateSubscription(subscription: Subscription)
     suspend fun deleteSubscription(subscription: Subscription)
+    suspend fun deleteSubscriptionById(id: Int)
     fun getPaymentsBySubscriptionId(subscriptionId: Int): Flow<List<Payment>>
     suspend fun insertPayment(payment: Payment)
 }

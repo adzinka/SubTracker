@@ -1,48 +1,48 @@
 package com.adzinka.subtracker.fake
 
-import androidx.compose.ui.graphics.Color
 import com.adzinka.subtracker.model.Category
 import com.adzinka.subtracker.model.Subscription
 import com.adzinka.subtracker.model.SubscriptionStatus
+import java.time.LocalDate
 
 val mockSubscriptions = listOf(
     Subscription(
         1,
         "YouTube Premium",
         Category.STREAMING,
-        "Tomorrow",
+        LocalDate.now().plusDays(1),
         219,
-        status = SubscriptionStatus.SOON,
+        status = SubscriptionStatus.ACTIVE,
     ),
     Subscription(
         2,
         "Fitness Zone",
         Category.FITNESS,
-        "7. 3.",
+        LocalDate.now().plusDays(3),
         890,
-        status = SubscriptionStatus.SOON,
+        status = SubscriptionStatus.ACTIVE,
     ),
     Subscription(
         3,
         "Adobe Creative Cloud",
         Category.PRODUCTIVITY,
-        "8. 3.",
+        LocalDate.now().plusDays(5),
         1199,
-        status = SubscriptionStatus.SOON,
+        status = SubscriptionStatus.ACTIVE,
     ),
     Subscription(
         4,
         "Netflix",
         Category.STREAMING,
-        "12. 3.",
+        LocalDate.now().plusDays(7),
         249,
-        status = SubscriptionStatus.SOON,
+        status = SubscriptionStatus.ACTIVE,
     ),
     Subscription(
         5,
         "iCloud+",
         Category.CLOUD,
-        "15. 3.",
+        LocalDate.now().plusDays(10),
         49,
         status = SubscriptionStatus.ACTIVE,
     ),
@@ -50,7 +50,7 @@ val mockSubscriptions = listOf(
         6,
         "Spotify",
         Category.MUSIC,
-        "22. 3.",
+        LocalDate.now().plusDays(15),
         149,
         status = SubscriptionStatus.ACTIVE,
     ),
@@ -58,7 +58,7 @@ val mockSubscriptions = listOf(
         7,
         "O2 TV",
         Category.STREAMING,
-        "25. 3.",
+        LocalDate.now().plusDays(25),
         199,
         status = SubscriptionStatus.PAUSED,
     )

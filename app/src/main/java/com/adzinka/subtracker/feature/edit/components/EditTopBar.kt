@@ -30,7 +30,12 @@ import com.adzinka.subtracker.R
 import com.adzinka.subtracker.core.ui.theme.AppColors
 
 @Composable
-fun EditTopBar(title: String, onBackClick: () -> Unit, onSaveClick: () -> Unit) {
+fun EditTopBar(
+    title: String,
+    isSaveEnabled: Boolean,
+    onBackClick: () -> Unit,
+    onSaveClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,6 +61,7 @@ fun EditTopBar(title: String, onBackClick: () -> Unit, onSaveClick: () -> Unit) 
 
         Button(
             onClick = onSaveClick,
+            enabled = isSaveEnabled,
             colors = ButtonDefaults.buttonColors(contentColor = AppColors.White, containerColor = AppColors.White.copy(alpha = 0.2f))
         ) {
             Icon(
@@ -71,5 +77,10 @@ fun EditTopBar(title: String, onBackClick: () -> Unit, onSaveClick: () -> Unit) 
 @Preview
 @Composable
 fun EditTopBarPreview() {
-    EditTopBar("Edit Subscription", onBackClick = {}, onSaveClick = {})
+    EditTopBar(
+        "Edit Subscription",
+        isSaveEnabled = true,
+        onBackClick = {},
+        onSaveClick = {}
+    )
 }

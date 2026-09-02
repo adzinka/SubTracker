@@ -1,10 +1,12 @@
 package com.adzinka.subtracker.model
 
+import java.time.LocalDate
+
 data class Subscription(
     val id: Int,
     val name: String,
     val category: Category,
-    val nextPaymentDate: String,
+    val nextPaymentDate: LocalDate,
     val price: Int,
     val currency: String = "CZK",
     val billingPeriod: BillingPeriod = BillingPeriod.MONTHLY,
@@ -13,6 +15,4 @@ data class Subscription(
     val notes: String? = null
 )
 
-enum class SubscriptionStatus {
-    ACTIVE, PAUSED, SOON
-}
+enum class SubscriptionStatus { ACTIVE, PAUSED }

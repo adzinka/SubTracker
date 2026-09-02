@@ -34,7 +34,7 @@ fun DeleteButton(onClick: () -> Unit) {
     ) {
         Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(16.dp))
         Spacer(Modifier.width(6.dp))
-        Text("Smazat podpis", fontWeight = FontWeight.SemiBold)
+        Text("Smazat předplatné", fontWeight = FontWeight.SemiBold)
     }
 }
 

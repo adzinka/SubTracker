@@ -5,13 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.adzinka.subtracker.model.BillingPeriod
 import com.adzinka.subtracker.model.SubscriptionStatus
+import java.time.LocalDate
 
 @Entity(tableName = "subscriptions")
 data class SubscriptionEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val category: String,
-    @ColumnInfo(name = "next_payment_date") val nextPaymentDate: String,
+    @ColumnInfo(name = "next_payment_date") val nextPaymentDate: LocalDate,
     val price: Int,
     val currency: String = "CZK",
     @ColumnInfo(name = "billing_period") val billingPeriod: String = BillingPeriod.MONTHLY.name,

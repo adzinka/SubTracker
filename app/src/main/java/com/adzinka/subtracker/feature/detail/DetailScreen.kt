@@ -33,6 +33,7 @@ import com.adzinka.subtracker.feature.detail.components.PaymentRow
 import com.adzinka.subtracker.feature.detail.components.PaymentsHeader
 import com.adzinka.subtracker.model.Payment
 import com.adzinka.subtracker.model.Subscription
+import com.adzinka.subtracker.model.monthlyPrice
 
 @Composable
 fun DetailScreen(
@@ -82,6 +83,7 @@ private fun DetailContent(
             DetailHeader(
                 name = subscription.name,
                 price = subscription.price,
+                monthlyPrice = subscription.monthlyPrice(),
                 currency = subscription.currency,
                 period = subscription.billingPeriod.label,
                 nextPaymentDate = subscription.nextPaymentDate,

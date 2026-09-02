@@ -26,7 +26,7 @@ fun FilterRow(
     ) {
         FilterStatus.entries.forEach { filter ->
             FilterChip(
-                label = filter.name,
+                label = filter.label,
                 badge = if (filter.name == "Soon") soonCount else null,
                 isSelected = filter == selectedFilter,
                 onClick = { onFilterSelected(filter) }

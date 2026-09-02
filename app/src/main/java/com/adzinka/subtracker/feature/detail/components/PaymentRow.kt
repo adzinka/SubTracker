@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adzinka.subtracker.core.ui.formatFull
 import com.adzinka.subtracker.fake.mockPayments
 import com.adzinka.subtracker.model.Payment
 
@@ -31,7 +32,7 @@ fun PaymentRow(payment: Payment, modifier: Modifier = Modifier) {
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = payment.date,
+                text = payment.date.formatFull(),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color(0xFF1A1A2E)

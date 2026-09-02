@@ -19,7 +19,6 @@ import com.adzinka.subtracker.model.SubscriptionStatus
 @Composable
 fun StatusBadge(status: SubscriptionStatus) {
     val (bgColor, textColor, label) = when (status) {
-        SubscriptionStatus.SOON -> Triple(AppColors.BadgeSoon, AppColors.BadgeSoonText, "Soon")
         SubscriptionStatus.PAUSED -> Triple(AppColors.BadgePaused, AppColors.BadgePausedText, "Pause")
         SubscriptionStatus.ACTIVE -> Triple(Color.Transparent, Color.Transparent, "")
     }

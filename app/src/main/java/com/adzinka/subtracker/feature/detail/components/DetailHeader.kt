@@ -30,16 +30,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adzinka.subtracker.core.ui.formatFull
 import com.adzinka.subtracker.core.ui.theme.AppColors
 import com.adzinka.subtracker.model.SubscriptionStatus
+import java.time.LocalDate
 
 @Composable
 fun DetailHeader(
     name: String,
     price: Int,
+    monthlyPrice: Int,
     currency: String,
     period: String,
-    nextPaymentDate: String,
+    nextPaymentDate: LocalDate,
     status: SubscriptionStatus,
     iconEmoji: String,
     headerColor: Color,
@@ -166,11 +169,11 @@ fun DetailHeader(
                                     modifier = Modifier.padding(bottom = 4.dp)
                                 )
                             }
-                            Text(
-                                text = "$price $currency / $period",
-                                color = AppColors.White.copy(alpha = 0.75f),
-                                fontSize = 13.sp
-                            )
+//                            Text(
+//                                text = "$price $currency / $period",
+//                                color = AppColors.White.copy(alpha = 0.75f),
+//                                fontSize = 13.sp
+//                            )
                         }
 
                         // Status badge
@@ -187,13 +190,13 @@ fun DetailHeader(
                     ) {
                         InfoCard(
                             label = "Příští platba",
-                            value = nextPaymentDate,
+                            value = nextPaymentDate.formatFull(),
                             emoji = "📅",
                             modifier = Modifier.weight(1f)
                         )
                         InfoCard(
                             label = "Měsíčně",
-                            value = "~$price $currency",
+                            value = "~$monthlyPrice $currency",
                             emoji = "💲",
                             modifier = Modifier.weight(1f)
                         )
@@ -212,10 +215,11 @@ fun DetailHeaderPreview() {
     DetailHeader(
         name = "YouTube Premiun",
         price = 219,
+        monthlyPrice = 219,
         currency = "CZK",
         period = "Monthly",
-        nextPaymentDate = "Tomorrow",
-        status = SubscriptionStatus.SOON,
+        nextPaymentDate = LocalDate.now(),
+        status = SubscriptionStatus.ACTIVE,
         iconEmoji = "📺",
         headerColor = Color(0xFFFF6B6B),
         onBackClick = { },
